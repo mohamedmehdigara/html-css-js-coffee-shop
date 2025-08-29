@@ -80,6 +80,8 @@
                 <a href="#menu" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Menu</a>
                 <a href="#gallery" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Gallery</a>
                 <a href="#testimonials" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Testimonials</a>
+                <a href="#events" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Events</a>
+                <a href="#loyalty" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Loyalty</a>
                 <a href="#contact" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Contact</a>
                 <button id="cart-button" class="relative text-gray-700 font-semibold hover:text-gray-900 transition-colors duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -170,6 +172,38 @@
             </div>
         </div>
     </section>
+    
+    <!-- Events Section -->
+    <section id="events" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Upcoming Events</h2>
+            <div id="events-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Events will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Loyalty Section -->
+    <section id="loyalty" class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-8">Customer Loyalty Program</h2>
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md text-center">
+                <p class="text-lg font-semibold mb-4">Earn points with every purchase!</p>
+                <div class="flex items-center justify-center space-x-4 mb-6">
+                    <div class="text-5xl font-bold text-gray-900" id="loyalty-points">0</div>
+                    <span class="text-xl text-gray-600">points</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-4">
+                    <div class="bg-gray-900 h-4 rounded-full transition-all duration-500" id="points-progress" style="width: 0%;"></div>
+                </div>
+                <p class="text-sm text-gray-500 mb-6" id="points-status">Make a purchase to start earning points!</p>
+                <button id="redeem-button" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Redeem Free Coffee (50 points)
+                </button>
+                <div id="redeem-message" class="mt-4 text-center hidden"></div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="bg-white py-16">
@@ -241,6 +275,7 @@
             const newsletterForm = document.getElementById('newsletterForm');
             const newsletterMessage = document.getElementById('newsletter-message');
             const menuItemsContainer = document.getElementById('menu-items');
+            const eventsContainer = document.getElementById('events-container');
             const cartButton = document.getElementById('cart-button');
             const cartModal = document.getElementById('cart-modal');
             const closeCartModal = document.getElementById('close-cart-modal');
@@ -249,6 +284,15 @@
             const cartCountElement = document.getElementById('cart-count');
             const checkoutButton = document.getElementById('checkout-button');
             const checkoutMessage = document.getElementById('checkout-message');
+            const loyaltyPointsElement = document.getElementById('loyalty-points');
+            const pointsProgressElement = document.getElementById('points-progress');
+            const pointsStatusElement = document.getElementById('points-status');
+            const redeemButton = document.getElementById('redeem-button');
+            const redeemMessage = document.getElementById('redeem-message');
+
+            const POINTS_PER_ORDER = 10;
+            const POINTS_FOR_REWARD = 50;
+            let loyaltyPoints = parseInt(localStorage.getItem('loyaltyPoints')) || 0;
 
             const menu = [
                 { id: 1, name: 'Espresso', price: 3.00, description: 'A strong, concentrated coffee, the perfect pick-me-up.' },
@@ -258,8 +302,46 @@
                 { id: 5, name: 'Mocha', price: 5.00, description: 'A rich mix of chocolate, espresso, and steamed milk.' },
                 { id: 6, name: 'Drip Coffee', price: 2.50, description: 'Our daily brew, with a rotating selection of beans.' }
             ];
+            
+            const events = [
+                { id: 1, name: 'Live Acoustic Night', date: 'October 25, 2024', time: '7:00 PM', description: 'Enjoy soothing live music from local artist, Jane Doe.' },
+                { id: 2, name: 'Coffee Tasting Workshop', date: 'November 8, 2024', time: '6:30 PM', description: 'Learn to distinguish flavors and aromas of different beans from around the world.' },
+                { id: 3, name: 'Board Game Night', date: 'November 22, 2024', time: '6:00 PM', description: 'Bring your friends and your favorite board games for a fun-filled evening.' }
+            ];
 
             let cart = {};
+
+            // Loyalty Program Functions
+            const updateLoyaltyUI = () => {
+                loyaltyPointsElement.textContent = loyaltyPoints;
+                const progress = (loyaltyPoints / POINTS_FOR_REWARD) * 100;
+                pointsProgressElement.style.width = `${Math.min(progress, 100)}%`;
+                
+                if (loyaltyPoints >= POINTS_FOR_REWARD) {
+                    pointsStatusElement.textContent = `You have enough points to redeem your reward!`;
+                    redeemButton.disabled = false;
+                } else {
+                    const pointsNeeded = POINTS_FOR_REWARD - loyaltyPoints;
+                    pointsStatusElement.textContent = `You need ${pointsNeeded} more points for a free coffee!`;
+                    redeemButton.disabled = true;
+                }
+            };
+
+            redeemButton.addEventListener('click', () => {
+                if (loyaltyPoints >= POINTS_FOR_REWARD) {
+                    loyaltyPoints -= POINTS_FOR_REWARD;
+                    localStorage.setItem('loyaltyPoints', loyaltyPoints);
+                    redeemMessage.textContent = 'Congratulations! You have redeemed a free coffee.';
+                    redeemMessage.className = 'mt-4 text-center text-green-600 font-bold block';
+                    updateLoyaltyUI();
+                    setTimeout(() => {
+                        redeemMessage.classList.add('hidden');
+                    }, 3000);
+                } else {
+                    redeemMessage.textContent = 'Not enough points to redeem this reward.';
+                    redeemMessage.className = 'mt-4 text-center text-red-600 font-bold block';
+                }
+            });
 
             // Render menu items
             const renderMenu = () => {
@@ -278,6 +360,22 @@
                         </div>
                     `;
                     menuItemsContainer.appendChild(menuItem);
+                });
+            };
+            
+            // Render events
+            const renderEvents = () => {
+                eventsContainer.innerHTML = '';
+                events.forEach(event => {
+                    const eventItem = document.createElement('div');
+                    eventItem.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300';
+                    eventItem.innerHTML = `
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${event.name}</h3>
+                        <p class="text-gray-600 mb-2"><strong>Date:</strong> ${event.date}</p>
+                        <p class="text-gray-600 mb-4"><strong>Time:</strong> ${event.time}</p>
+                        <p class="text-gray-600">${event.description}</p>
+                    `;
+                    eventsContainer.appendChild(eventItem);
                 });
             };
 
@@ -365,6 +463,12 @@
                 if (Object.keys(cart).length > 0) {
                     checkoutMessage.textContent = 'Order placed successfully! Thank you for your purchase.';
                     checkoutMessage.classList.remove('hidden');
+                    
+                    // Add loyalty points on successful order
+                    loyaltyPoints += POINTS_PER_ORDER;
+                    localStorage.setItem('loyaltyPoints', loyaltyPoints);
+                    updateLoyaltyUI();
+
                     cart = {};
                     renderCart();
                     setTimeout(() => {
@@ -414,7 +518,9 @@
 
             // Initial render
             renderMenu();
+            renderEvents();
             renderCart();
+            updateLoyaltyUI();
         });
     </script>
 </body>
