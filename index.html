@@ -22,18 +22,71 @@
         .nav-link:hover {
             color: #6B7280;
         }
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fade-in 1s ease-out forwards;
+        }
+        .animate-slide-up {
+            animation: slide-up 1s ease-out forwards;
+        }
+
+        /* Modal specific styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            padding: 24px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center flex-wrap">
             <a href="#" class="text-2xl font-bold text-gray-900">The Daily Grind</a>
-            <div class="space-x-4">
+            <div class="mt-2 sm:mt-0 space-x-2 sm:space-x-4 flex items-center">
                 <a href="#about" class="nav-link text-gray-700 font-semibold transition-colors duration-300">About</a>
                 <a href="#menu" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Menu</a>
+                <a href="#gallery" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Gallery</a>
+                <a href="#testimonials" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Testimonials</a>
                 <a href="#contact" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Contact</a>
+                <button id="cart-button" class="relative text-gray-700 font-semibold hover:text-gray-900 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                    <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
+                </button>
             </div>
         </nav>
     </header>
@@ -76,42 +129,43 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Our Menu</h2>
             
+            <div id="menu-items" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu items will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <img src="https://placehold.co/600x400/8B5CF6/FFFFFF?text=Coffee+Art" alt="Coffee art" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x400/EC4899/FFFFFF?text=Pastries" alt="Fresh pastries" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x400/F97316/FFFFFF?text=Cozy+Interior" alt="Cozy coffee shop interior" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x400/10B981/FFFFFF?text=Reading+Corner" alt="Reading corner" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x400/3B82F6/FFFFFF?text=Barista+at+Work" alt="Barista at work" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+                <img src="https://placehold.co/600x400/6B7280/FFFFFF?text=Coffee+Beans" alt="Freshly roasted coffee beans" class="w-full h-full object-cover rounded-lg shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="bg-gray-50 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">What Our Customers Say</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Coffee Item 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Espresso</h3>
-                    <p class="text-gray-600 mb-4">A strong, concentrated coffee, the perfect pick-me-up.</p>
-                    <span class="font-bold text-gray-900">$3.00</span>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 italic mb-4">"The best coffee in town, hands down! The atmosphere is so relaxed, and the staff are always friendly."</p>
+                    <p class="font-semibold text-gray-900">- Jane Doe</p>
                 </div>
-                <!-- Coffee Item 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Latte</h3>
-                    <p class="text-gray-600 mb-4">Espresso with steamed milk and a thin layer of foam.</p>
-                    <span class="font-bold text-gray-900">$4.50</span>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 italic mb-4">"I love coming here to work. The Wi-Fi is fast, and the mocha is absolutely delicious. My new favorite spot."</p>
+                    <p class="font-semibold text-gray-900">- John Smith</p>
                 </div>
-                <!-- Coffee Item 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Cappuccino</h3>
-                    <p class="text-gray-600 mb-4">Equal parts espresso, steamed milk, and milk foam.</p>
-                    <span class="font-bold text-gray-900">$4.50</span>
-                </div>
-                <!-- Coffee Item 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Americano</h3>
-                    <p class="text-gray-600 mb-4">Espresso shots diluted with hot water.</p>
-                    <span class="font-bold text-gray-900">$3.50</span>
-                </div>
-                <!-- Coffee Item 5 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Mocha</h3>
-                    <p class="text-gray-600 mb-4">A rich mix of chocolate, espresso, and steamed milk.</p>
-                    <span class="font-bold text-gray-900">$5.00</span>
-                </div>
-                <!-- Coffee Item 6 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Drip Coffee</h3>
-                    <p class="text-gray-600 mb-4">Our daily brew, with a rotating selection of beans.</p>
-                    <span class="font-bold text-gray-900">$2.50</span>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <p class="text-gray-600 italic mb-4">"The pastries are to die for! The croissant is flaky and buttery, and it pairs perfectly with my latte."</p>
+                    <p class="font-semibold text-gray-900">- Emily Chen</p>
                 </div>
             </div>
         </div>
@@ -142,6 +196,19 @@
         </div>
     </section>
 
+    <!-- Newsletter Section -->
+    <section class="bg-gray-900 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold mb-4">Join Our Newsletter</h2>
+            <p class="text-lg mb-8">Stay up-to-date with our latest specials, new menu items, and events.</p>
+            <form id="newsletterForm" class="flex flex-col sm:flex-row justify-center items-center gap-4 max-w-lg mx-auto">
+                <input type="email" id="newsletter-email" name="email" placeholder="Enter your email" class="w-full sm:w-2/3 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-700" required>
+                <button type="submit" class="w-full sm:w-1/3 bg-white text-gray-900 font-semibold py-3 rounded-lg hover:bg-gray-200 transition-colors duration-300">Subscribe</button>
+            </form>
+            <div id="newsletter-message" class="mt-4 hidden text-green-400 font-bold"></div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-8 mt-12">
         <div class="container mx-auto px-4 text-center">
@@ -149,16 +216,190 @@
         </div>
     </footer>
 
+    <!-- Shopping Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-cart-modal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Your Cart</h2>
+            <div id="cart-items" class="space-y-4">
+                <!-- Cart items will be dynamically generated here -->
+            </div>
+            <div id="cart-total" class="font-bold text-xl mt-6 border-t pt-4 border-gray-200">
+                Total: $0.00
+            </div>
+            <button id="checkout-button" class="mt-6 w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                Checkout
+            </button>
+            <div id="checkout-message" class="mt-4 text-center hidden text-green-600 font-bold"></div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('contactForm');
-            const formMessage = document.getElementById('form-message');
+            const contactForm = document.getElementById('contactForm');
+            const contactFormMessage = document.getElementById('form-message');
+            const newsletterForm = document.getElementById('newsletterForm');
+            const newsletterMessage = document.getElementById('newsletter-message');
+            const menuItemsContainer = document.getElementById('menu-items');
+            const cartButton = document.getElementById('cart-button');
+            const cartModal = document.getElementById('cart-modal');
+            const closeCartModal = document.getElementById('close-cart-modal');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalElement = document.getElementById('cart-total');
+            const cartCountElement = document.getElementById('cart-count');
+            const checkoutButton = document.getElementById('checkout-button');
+            const checkoutMessage = document.getElementById('checkout-message');
 
-            form.addEventListener('submit', (event) => {
+            const menu = [
+                { id: 1, name: 'Espresso', price: 3.00, description: 'A strong, concentrated coffee, the perfect pick-me-up.' },
+                { id: 2, name: 'Latte', price: 4.50, description: 'Espresso with steamed milk and a thin layer of foam.' },
+                { id: 3, name: 'Cappuccino', price: 4.50, description: 'Equal parts espresso, steamed milk, and milk foam.' },
+                { id: 4, name: 'Americano', price: 3.50, description: 'Espresso shots diluted with hot water.' },
+                { id: 5, name: 'Mocha', price: 5.00, description: 'A rich mix of chocolate, espresso, and steamed milk.' },
+                { id: 6, name: 'Drip Coffee', price: 2.50, description: 'Our daily brew, with a rotating selection of beans.' }
+            ];
+
+            let cart = {};
+
+            // Render menu items
+            const renderMenu = () => {
+                menuItemsContainer.innerHTML = '';
+                menu.forEach(item => {
+                    const menuItem = document.createElement('div');
+                    menuItem.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300';
+                    menuItem.innerHTML = `
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${item.name}</h3>
+                        <p class="text-gray-600 mb-4">${item.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-gray-900">$${item.price.toFixed(2)}</span>
+                            <button data-id="${item.id}" class="add-to-cart-btn bg-gray-900 text-white font-semibold py-2 px-4 rounded-full text-sm hover:bg-gray-700 transition-colors duration-300">
+                                Add to Cart
+                            </button>
+                        </div>
+                    `;
+                    menuItemsContainer.appendChild(menuItem);
+                });
+            };
+
+            // Render cart items
+            const renderCart = () => {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+                let count = 0;
+
+                for (const itemId in cart) {
+                    const item = cart[itemId];
+                    total += item.price * item.quantity;
+                    count += item.quantity;
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.className = 'flex justify-between items-center';
+                    cartItemElement.innerHTML = `
+                        <div class="flex-1">
+                            <h4 class="font-semibold">${item.name}</h4>
+                            <p class="text-sm text-gray-500">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button data-id="${item.id}" data-action="decrease" class="cart-qty-btn bg-gray-200 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center">-</button>
+                            <span class="font-semibold">${item.quantity}</span>
+                            <button data-id="${item.id}" data-action="increase" class="cart-qty-btn bg-gray-200 text-gray-800 rounded-full w-6 h-6 flex items-center justify-center">+</button>
+                            <button data-id="${item.id}" data-action="remove" class="remove-from-cart-btn text-red-600 hover:text-red-800 transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 11-2 0v6a1 1 0 112 0V8z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItemElement);
+                }
+
+                cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+                cartCountElement.textContent = count;
+                if (count > 0) {
+                    cartCountElement.classList.remove('hidden');
+                } else {
+                    cartCountElement.classList.add('hidden');
+                }
+            };
+
+            // Add item to cart
+            menuItemsContainer.addEventListener('click', (event) => {
+                const button = event.target.closest('.add-to-cart-btn');
+                if (button) {
+                    const itemId = parseInt(button.dataset.id);
+                    const itemToAdd = menu.find(item => item.id === itemId);
+                    if (itemToAdd) {
+                        if (cart[itemId]) {
+                            cart[itemId].quantity++;
+                        } else {
+                            cart[itemId] = { ...itemToAdd, quantity: 1 };
+                        }
+                        renderCart();
+                        cartModal.style.display = 'flex';
+                    }
+                }
+            });
+
+            // Handle cart quantity changes and removal
+            cartItemsContainer.addEventListener('click', (event) => {
+                const button = event.target.closest('button');
+                if (button) {
+                    const itemId = parseInt(button.dataset.id);
+                    const action = button.dataset.action;
+
+                    if (action === 'increase') {
+                        cart[itemId].quantity++;
+                    } else if (action === 'decrease') {
+                        cart[itemId].quantity--;
+                        if (cart[itemId].quantity <= 0) {
+                            delete cart[itemId];
+                        }
+                    } else if (action === 'remove') {
+                        delete cart[itemId];
+                    }
+                    renderCart();
+                }
+            });
+
+            // Handle checkout
+            checkoutButton.addEventListener('click', () => {
+                if (Object.keys(cart).length > 0) {
+                    checkoutMessage.textContent = 'Order placed successfully! Thank you for your purchase.';
+                    checkoutMessage.classList.remove('hidden');
+                    cart = {};
+                    renderCart();
+                    setTimeout(() => {
+                        cartModal.style.display = 'none';
+                        checkoutMessage.classList.add('hidden');
+                    }, 3000);
+                }
+            });
+
+            // Modal functionality
+            cartButton.addEventListener('click', () => {
+                cartModal.style.display = 'flex';
+            });
+            closeCartModal.addEventListener('click', () => {
+                cartModal.style.display = 'none';
+            });
+            window.addEventListener('click', (event) => {
+                if (event.target === cartModal) {
+                    cartModal.style.display = 'none';
+                }
+            });
+
+            // Contact and Newsletter forms
+            contactForm.addEventListener('submit', (event) => {
                 event.preventDefault();
-                formMessage.textContent = 'Thank you for your message! We will get back to you shortly.';
-                formMessage.className = 'mt-4 text-center text-green-600 font-bold block';
-                form.reset();
+                contactFormMessage.textContent = 'Thank you for your message! We will get back to you shortly.';
+                contactFormMessage.className = 'mt-4 text-center text-green-600 font-bold block';
+                contactForm.reset();
+            });
+
+            newsletterForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                newsletterMessage.textContent = 'You have successfully subscribed to our newsletter!';
+                newsletterMessage.className = 'mt-4 text-green-400 font-bold block';
+                newsletterForm.reset();
             });
 
             // Smooth scrolling for navigation links
@@ -170,6 +411,10 @@
                     });
                 });
             });
+
+            // Initial render
+            renderMenu();
+            renderCart();
         });
     </script>
 </body>
