@@ -76,6 +76,18 @@
             color: #1F2937;
             border-bottom: 2px solid #1F2937;
         }
+        /* Tab-specific styling */
+        .tab-button.active {
+            background-color: #1F2937;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -157,8 +169,110 @@
     <section id="menu" class="bg-gray-50 py-16">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Our Full Menu</h2>
-            <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- All menu items will be dynamically generated here -->
+            <!-- Tabbed Menu Navigation -->
+            <div class="flex justify-center flex-wrap gap-4 mb-8">
+                <button class="tab-button active px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 bg-gray-900 text-white" data-tab-id="drinks">
+                    Drinks
+                </button>
+                <button class="tab-button px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 text-gray-700 bg-gray-200 hover:bg-gray-300" data-tab-id="food">
+                    Food
+                </button>
+                <button class="tab-button px-6 py-3 rounded-full text-lg font-medium transition-all duration-300 transform hover:scale-105 text-gray-700 bg-gray-200 hover:bg-gray-300" data-tab-id="merchandise">
+                    Merchandise
+                </button>
+            </div>
+
+            <!-- Tab Content Sections -->
+            <div id="menu-items">
+                <!-- Drinks Tab Content -->
+                <div class="tab-content active" id="drinks">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Example Drink Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/F4EADF/000000?text=Espresso" alt="Espresso" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Espresso</h3>
+                                <p class="text-gray-600 text-sm mb-4">A concentrated shot of pure coffee.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$2.50</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Example Drink Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/C8B5A6/000000?text=Latte" alt="Latte" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Latte</h3>
+                                <p class="text-gray-600 text-sm mb-4">Espresso with steamed milk and a thin layer of foam.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$4.00</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Example Drink Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/A0918C/000000?text=Cappuccino" alt="Cappuccino" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Cappuccino</h3>
+                                <p class="text-gray-600 text-sm mb-4">Espresso with steamed milk and a thick layer of foam.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$4.25</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Food Tab Content -->
+                <div class="tab-content" id="food">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Example Food Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/F5E4C5/000000?text=Croissant" alt="Croissant" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Croissant</h3>
+                                <p class="text-gray-600 text-sm mb-4">Flaky, buttery pastry, baked fresh daily.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$3.00</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Example Food Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/D2E5F2/000000?text=Blueberry+Muffin" alt="Blueberry Muffin" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">Blueberry Muffin</h3>
+                                <p class="text-gray-600 text-sm mb-4">A moist muffin loaded with fresh blueberries.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$3.25</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Merchandise Tab Content -->
+                <div class="tab-content" id="merchandise">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- Example Merchandise Item -->
+                        <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                            <img src="https://placehold.co/400x300/6B7280/FFFFFF?text=Coffee+Beans" alt="Coffee Beans" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold text-gray-900 mb-2">House-Roasted Beans</h3>
+                                <p class="text-gray-600 text-sm mb-4">Our signature blend, perfect for brewing at home.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-lg font-bold text-gray-900">$18.00</span>
+                                    <button class="add-to-cart-btn bg-gray-900 text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-gray-700 transition-colors duration-300">Add to Cart</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -242,7 +356,7 @@
                     </div>
                     <div class="mb-4">
                         <label for="review-text" class="block text-gray-700 font-semibold mb-2">Your Review</label>
-                        <textarea id="review-text" name="review-text" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900" required></textarea>
+                        <textarea id="review-text" name="review-text" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-ring-gray-900" required></textarea>
                     </div>
                     <button type="submit" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">Submit Review</button>
                     <div id="review-form-message" class="mt-4 text-center hidden"></div>
@@ -405,7 +519,7 @@
             <p id="last-order-message" class="mt-4 text-center hidden"></p>
         </div>
     </div>
-
+    
     <script>
         // In-memory state, backed by localStorage
         const STORAGE_KEYS = {
@@ -477,7 +591,7 @@
         const closeCartModalButton = document.getElementById('close-cart-modal');
         const closeSummaryModalButton = document.getElementById('close-summary-modal');
         const specialsItemsContainer = document.getElementById('specials-items');
-        const menuItemsContainer = document.getElementById('menu-items');
+        // const menuItemsContainer = document.getElementById('menu-items'); // Note: This is no longer used for rendering, but holds the tab content.
         const cartItemsContainer = document.getElementById('cart-items');
         const cartSubtotalSpan = document.getElementById('cart-subtotal');
         const cartTotalSpan = document.getElementById('cart-total');
@@ -509,525 +623,442 @@
         const orderHistoryBtn = document.getElementById('order-history-btn');
         const lastOrderDetails = document.getElementById('last-order-details');
         const lastOrderMessage = document.getElementById('last-order-message');
+        const redeemMessageDiv = document.getElementById('redeem-message');
+        const giftCardMessageDiv = document.getElementById('gift-card-message');
+        const formMessageDiv = document.getElementById('form-message');
+        const newsletterMessageDiv = document.getElementById('newsletter-message');
 
-        // --- Core UI Rendering Functions ---
-        function renderAll() {
-            renderCart();
-            renderLoyalty();
-            renderSpecials();
-            renderFullMenu();
-            renderReviews();
-            renderEvents();
-        }
+        // Function to update the cart count display
+        const updateCartCount = () => {
+            const count = appState.cartItems.reduce((total, item) => total + item.quantity, 0);
+            cartCountSpan.textContent = count;
+        };
 
-        function renderLoyalty() {
-            loyaltyPointsDiv.textContent = appState.loyaltyPoints;
-            
-            let tier = 'Bronze';
-            let nextTierPoints = loyaltyTiers.Silver.points;
-            let nextTierReward = loyaltyTiers.Silver.reward;
-
-            if (appState.loyaltyPoints >= loyaltyTiers.Gold.points) {
-                tier = 'Gold';
-                nextTierPoints = loyaltyTiers.Gold.points;
-                nextTierReward = 'You have reached the highest tier!';
-            } else if (appState.loyaltyPoints >= loyaltyTiers.Silver.points) {
-                tier = 'Silver';
-                nextTierPoints = loyaltyTiers.Gold.points;
-                nextTierReward = loyaltyTiers.Gold.reward;
-            }
-
-            loyaltyTierDiv.textContent = tier + ' Tier';
-            pointsStatusDiv.textContent = `You have ${appState.loyaltyPoints} points. ${nextTierReward}`;
-            
-            let progress = (appState.loyaltyPoints / nextTierPoints) * 100;
-            if (progress > 100) progress = 100;
-            pointsProgressDiv.style.width = `${progress}%`;
-            
-            renderRewards();
+        // Function to save state to localStorage
+        const saveState = () => {
             localStorage.setItem(STORAGE_KEYS.LOYALTY_POINTS, appState.loyaltyPoints);
-        }
+            localStorage.setItem(STORAGE_KEYS.CART_ITEMS, JSON.stringify(appState.cartItems));
+            localStorage.setItem(STORAGE_KEYS.GIFT_CARDS, JSON.stringify(appState.giftCards));
+            localStorage.setItem(STORAGE_KEYS.LAST_ORDER, JSON.stringify(appState.lastOrder));
+            localStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(appState.reviews));
+        };
 
-        function renderRewards() {
-            rewardsListDiv.innerHTML = '';
-            let redeemableFound = false;
-            for (const tier in loyaltyTiers) {
-                const tierData = loyaltyTiers[tier];
-                if (appState.loyaltyPoints >= tierData.points && tierData.points > 0) {
-                    const button = document.createElement('button');
-                    button.textContent = `Redeem ${tierData.reward.split(' at ')[0]}`;
-                    button.className = 'w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300';
-                    button.onclick = () => redeemReward(tierData.points, tierData.reward.split(' at ')[0]);
-                    rewardsListDiv.appendChild(button);
-                    redeemableFound = true;
-                }
-            }
-            if (!redeemableFound) {
-                rewardsListDiv.innerHTML = `<p class="text-gray-500 italic">No rewards to redeem yet.</p>`;
-            }
-        }
+        // Function to show a modal
+        const showModal = (modalElement) => {
+            modalElement.style.display = 'flex';
+        };
 
-        function renderCart() {
+        // Function to hide a modal
+        const hideModal = (modalElement) => {
+            modalElement.style.display = 'none';
+        };
+
+        // Function to calculate total price
+        const calculateTotalPrice = () => {
+            let subtotal = appState.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+            let total = subtotal - appState.giftCardBalance;
+            if (total < 0) {
+                total = 0;
+            }
+            return { subtotal, total };
+        };
+
+        // Function to render the cart
+        const renderCart = () => {
             cartItemsContainer.innerHTML = '';
-            let subtotal = 0;
-            cartCountSpan.textContent = appState.cartItems.length;
-
             if (appState.cartItems.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
-                cartSubtotalSpan.textContent = '$0.00';
-                cartTotalSpan.textContent = '$0.00';
-                giftCardDiscountRow.style.display = 'none';
+                cartItemsContainer.innerHTML = '<p class="text-gray-500 italic">Your cart is empty.</p>';
                 checkoutButton.disabled = true;
+                checkoutButton.classList.add('opacity-50', 'cursor-not-allowed');
             } else {
-                appState.cartItems.forEach((item, index) => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'flex justify-between items-center bg-gray-50 p-3 rounded-md';
-                    
-                    const optionsText = item.customizations ? Object.entries(item.customizations)
-                        .map(([key, value]) => `<span class="capitalize">${key}:</span> ${value}`).join(', ') : '';
-
-                    itemDiv.innerHTML = `
+                checkoutButton.disabled = false;
+                checkoutButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                appState.cartItems.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'flex justify-between items-center bg-gray-50 p-4 rounded-lg';
+                    itemElement.innerHTML = `
                         <div>
-                            <p class="font-semibold text-gray-900">${item.name} <span class="text-sm text-gray-500">x${item.quantity}</span></p>
-                            ${optionsText ? `<p class="text-xs text-gray-500">${optionsText}</p>` : ''}
-                            <p class="text-sm text-gray-600">$${(item.price * item.quantity).toFixed(2)}</p>
+                            <p class="font-bold">${item.name} (${item.quantity})</p>
+                            <p class="text-sm text-gray-500">$${(item.price * item.quantity).toFixed(2)}</p>
                         </div>
-                        <button data-index="${index}" class="remove-from-cart-btn text-red-500 hover:text-red-700 transition-colors">
+                        <button data-id="${item.id}" class="remove-from-cart-btn text-red-500 hover:text-red-700">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.728-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 112 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
                             </svg>
                         </button>
                     `;
-                    cartItemsContainer.appendChild(itemDiv);
-                    subtotal += item.price * item.quantity;
-                });
-                
-                let total = subtotal;
-                if (appState.giftCardBalance > 0) {
-                    const discount = Math.min(total, appState.giftCardBalance);
-                    total = Math.max(0, total - discount);
-                    giftCardDiscountRow.style.display = 'flex';
-                    giftCardDiscountSpan.textContent = `-$${discount.toFixed(2)}`;
-                } else {
-                    giftCardDiscountRow.style.display = 'none';
-                }
-
-                cartSubtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
-                cartTotalSpan.textContent = `$${total.toFixed(2)}`;
-                checkoutButton.disabled = false;
-            }
-            localStorage.setItem(STORAGE_KEYS.CART_ITEMS, JSON.stringify(appState.cartItems));
-        }
-
-        function renderSpecials() {
-            specialsItemsContainer.innerHTML = '';
-            const dailySpecial = JSON.parse(localStorage.getItem(STORAGE_KEYS.DAILY_SPECIAL));
-            if (dailySpecial && new Date(dailySpecial.date).getDate() === new Date().getDate()) {
-                // If special exists for today, render it
-                specialsItemsContainer.appendChild(createMenuItemCard(dailySpecial.item, true));
-            } else {
-                // Otherwise, prompt user to generate
-                specialsItemsContainer.innerHTML = '<p class="text-center text-gray-500">Click the button to generate today\'s special!</p>';
-            }
-        }
-
-        function generateDailySpecial() {
-            const specials = menuItems.filter(item => !item.options); // Simple items for special
-            const randomIndex = Math.floor(Math.random() * specials.length);
-            const specialItem = { ...specials[randomIndex] }; // Clone the object
-            specialItem.isSpecial = true;
-            specialItem.specialPrice = (specialItem.price * 0.85).toFixed(2); // 15% discount
-            
-            const todaySpecial = {
-                date: new Date(),
-                item: specialItem
-            };
-            localStorage.setItem(STORAGE_KEYS.DAILY_SPECIAL, JSON.stringify(todaySpecial));
-            renderSpecials();
-        }
-        
-        function renderReviews() {
-            reviewsListContainer.innerHTML = '';
-            if (appState.reviews.length === 0) {
-                reviewsListContainer.innerHTML = `<p class="text-center text-gray-500">No reviews yet. Be the first to leave one!</p>`;
-            } else {
-                appState.reviews.forEach(review => {
-                    const reviewDiv = document.createElement('div');
-                    reviewDiv.className = 'bg-gray-50 p-6 rounded-lg shadow-sm';
-                    reviewDiv.innerHTML = `
-                        <p class="font-bold text-gray-900 mb-2">${review.name}</p>
-                        <p class="text-gray-600 italic">"${review.text}"</p>
-                        <p class="text-xs text-gray-500 mt-2">${new Date(review.date).toLocaleDateString()}</p>
-                    `;
-                    reviewsListContainer.appendChild(reviewDiv);
+                    cartItemsContainer.appendChild(itemElement);
                 });
             }
-        }
-
-        // --- Core Application Logic ---
-        function redeemReward(pointsCost, rewardName) {
-            if (appState.loyaltyPoints >= pointsCost) {
-                appState.loyaltyPoints -= pointsCost;
-                renderLoyalty();
-                showModalMessage(document.getElementById('redeem-message'), `Successfully redeemed ${rewardName}!`, 'text-green-600');
-            } else {
-                showModalMessage(document.getElementById('redeem-message'), "Not enough points to redeem this reward.", 'text-red-600');
-            }
-        }
-        
-        function addToCart(item) {
-            const existingItem = appState.cartItems.find(i => i.id === item.id && !i.customizations);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                const newItem = {
-                    ...item,
-                    price: item.specialPrice || item.price,
-                    quantity: 1
-                };
-                appState.cartItems.push(newItem);
-            }
-            renderCart();
-            showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
-        }
-
-        function addToCartFromCustomization(item, customizations, price) {
-            const newItem = { 
-                id: item.id, 
-                name: item.name, 
-                price: price, 
-                customizations: customizations,
-                quantity: 1
-            };
-            appState.cartItems.push(newItem);
-            customizationModal.style.display = 'none';
-            renderCart();
-            showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
-        }
-
-        function removeFromCart(index) {
-            appState.cartItems.splice(index, 1);
-            renderCart();
-            showModalMessage(checkoutMessageDiv, `Item removed from cart.`, 'text-red-600');
-        }
-
-        function checkout() {
-            if (appState.cartItems.length === 0) {
-                showModalMessage(checkoutMessageDiv, "Your cart is empty!", 'text-red-600');
-                return;
-            }
-            
-            let total = appState.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            const { subtotal, total } = calculateTotalPrice();
+            cartSubtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+            cartTotalSpan.textContent = `$${total.toFixed(2)}`;
             
             if (appState.giftCardBalance > 0) {
-                total = Math.max(0, total - appState.giftCardBalance);
-                appState.giftCardBalance = 0;
-            }
-
-            const pointsEarned = Math.floor(total);
-            appState.loyaltyPoints += pointsEarned;
-            
-            const lastOrder = {
-                items: [...appState.cartItems],
-                total: total,
-                date: new Date()
-            };
-
-            appState.cartItems = [];
-            localStorage.setItem(STORAGE_KEYS.LAST_ORDER, JSON.stringify(lastOrder));
-
-            renderCart();
-            renderLoyalty();
-
-            showOrderSummary(lastOrder, pointsEarned);
-        }
-        
-        function generateGiftCard(e) {
-            e.preventDefault();
-            const email = document.getElementById('recipient-email').value;
-            const amount = parseFloat(document.getElementById('gift-amount').value);
-            const message = document.getElementById('gift-message').value;
-            
-            const generateCode = () => {
-                let result = '';
-                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                for (let i = 0; i < 8; i++) {
-                    result += characters.charAt(Math.floor(Math.random() * characters.length));
-                }
-                return result;
-            };
-
-            const giftCardCode = generateCode();
-            
-            appState.giftCards[giftCardCode] = { amount, email, message, redeemed: false };
-            localStorage.setItem(STORAGE_KEYS.GIFT_CARDS, JSON.stringify(appState.giftCards));
-
-            const messageDiv = document.getElementById('gift-card-message');
-            messageDiv.innerHTML = `
-                <p class="font-bold text-green-600">Gift Card Purchased!</p>
-                <p>The code is: <span class="font-mono text-gray-800">${giftCardCode}</span></p>
-                <button onclick="copyToClipboard('${giftCardCode}')" class="text-blue-500 hover:text-blue-700">Copy Code</button>
-            `;
-            messageDiv.classList.remove('hidden');
-            giftCardForm.reset();
-        }
-        
-        function redeemGiftCard(e) {
-            e.preventDefault();
-            const code = document.getElementById('gift-card-code').value.trim().toUpperCase();
-            if (!code) {
-                showModalMessage(giftCardRedeemMessage, "Please enter a code.", 'text-red-600');
-                return;
-            }
-            
-            if (appState.giftCardBalance > 0) {
-                showModalMessage(giftCardRedeemMessage, "A gift card has already been applied.", 'text-red-600');
-                return;
-            }
-            
-            const giftCard = appState.giftCards[code];
-            
-            if (giftCard && !giftCard.redeemed) {
-                appState.giftCardBalance = giftCard.amount;
-                giftCard.redeemed = true;
-                localStorage.setItem(STORAGE_KEYS.GIFT_CARDS, JSON.stringify(appState.giftCards));
-                renderCart();
-                showModalMessage(giftCardRedeemMessage, `Successfully applied a $${appState.giftCardBalance} gift card!`, 'text-green-600');
+                giftCardDiscountSpan.textContent = `-$${appState.giftCardBalance.toFixed(2)}`;
+                giftCardDiscountRow.style.display = 'flex';
             } else {
-                showModalMessage(giftCardRedeemMessage, "Invalid or already redeemed gift card code.", 'text-red-600');
+                giftCardDiscountRow.style.display = 'none';
             }
-        }
+        };
 
-        window.copyToClipboard = function(text) {
-            const el = document.createElement('textarea');
-            el.value = text;
-            document.body.appendChild(el);
-            el.select();
-            document.execCommand('copy');
-            document.body.removeChild(el);
+        // Function to render loyalty status
+        const renderLoyalty = () => {
+            let tierName = 'Bronze';
+            let nextTierPoints = 100;
+            let statusText = `Make a purchase to start earning points!`;
+
+            if (appState.loyaltyPoints >= 250) {
+                tierName = 'Gold';
+                statusText = 'You have reached the highest tier! Enjoy your rewards!';
+                nextTierPoints = 250; // Cap progress at Gold
+            } else if (appState.loyaltyPoints >= 100) {
+                tierName = 'Silver';
+                statusText = `Earn ${250 - appState.loyaltyPoints} more points to reach Gold tier.`;
+                nextTierPoints = 250;
+            } else if (appState.loyaltyPoints > 0) {
+                tierName = 'Bronze';
+                statusText = `Earn ${100 - appState.loyaltyPoints} more points to reach Silver tier.`;
+                nextTierPoints = 100;
+            }
+
+            loyaltyPointsDiv.textContent = Math.round(appState.loyaltyPoints);
+            loyaltyTierDiv.textContent = `${tierName} Tier`;
+            pointsStatusDiv.textContent = statusText;
+
+            const progressPercentage = (appState.loyaltyPoints / nextTierPoints) * 100;
+            pointsProgressDiv.style.width = `${Math.min(progressPercentage, 100)}%`;
+
+            rewardsListDiv.innerHTML = '';
+            for (const tier in loyaltyTiers) {
+                const rewardElement = document.createElement('div');
+                rewardElement.className = 'bg-gray-100 p-4 rounded-lg';
+                rewardElement.innerHTML = `
+                    <p class="font-bold text-gray-900">${tier} Tier Reward</p>
+                    <p class="text-sm text-gray-600">${loyaltyTiers[tier].reward}</p>
+                `;
+                rewardsListDiv.appendChild(rewardElement);
+            }
+        };
+
+        // Function to show a temporary message in a specific div
+        const showMessage = (div, message, isSuccess = true) => {
+            div.textContent = message;
+            div.classList.remove('hidden');
+            if (isSuccess) {
+                div.classList.remove('text-red-500');
+                div.classList.add('text-green-600');
+            } else {
+                div.classList.remove('text-green-600');
+                div.classList.add('text-red-500');
+            }
+            setTimeout(() => {
+                div.classList.add('hidden');
+            }, 3000);
         };
         
-        function submitReview(e) {
-            e.preventDefault();
-            const name = document.getElementById('review-name').value;
-            const text = document.getElementById('review-text').value;
-            const newReview = { name, text, date: new Date() };
-            appState.reviews.push(newReview);
-            localStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(appState.reviews));
-            renderReviews();
-            showModalMessage(document.getElementById('review-form-message'), 'Review submitted successfully!', 'text-green-600');
-            reviewForm.reset();
-        }
-
-        // --- UI Utility Functions ---
-        function showModalMessage(element, message, className) {
-            element.textContent = message;
-            element.className = `${className} mt-4 text-center font-bold`;
-            element.classList.remove('hidden');
-            setTimeout(() => {
-                element.classList.add('hidden');
-            }, 3000);
-        }
-
-        function showOrderSummary(order, pointsEarned) {
-            cartModal.style.display = 'none';
-            summaryDetailsDiv.innerHTML = '';
-            
-            order.items.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'flex justify-between border-b border-gray-200 pb-2';
-                const optionsText = item.customizations ? Object.entries(item.customizations)
-                    .map(([key, value]) => `${value}`).join(', ') : '';
-
-                itemDiv.innerHTML = `
-                    <span>${item.name} (${optionsText ? optionsText + ', ' : ''}x${item.quantity})</span>
-                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+        // Function to render reviews
+        const renderReviews = () => {
+            reviewsListContainer.innerHTML = '';
+            appState.reviews.forEach(review => {
+                const reviewElement = document.createElement('div');
+                reviewElement.className = 'bg-white p-6 rounded-lg shadow-md';
+                reviewElement.innerHTML = `
+                    <p class="text-gray-600 italic mb-4">"${review.text}"</p>
+                    <p class="font-semibold text-gray-900">- ${review.name}</p>
                 `;
-                summaryDetailsDiv.appendChild(itemDiv);
+                reviewsListContainer.appendChild(reviewElement);
             });
-
-            const totalDiv = document.createElement('div');
-            totalDiv.className = 'flex justify-between font-bold text-lg pt-2';
-            totalDiv.innerHTML = `<span>Total:</span><span>$${order.total.toFixed(2)}</span>`;
-            summaryDetailsDiv.appendChild(totalDiv);
-
-            summaryPointsDiv.textContent = `You earned ${pointsEarned} points with this order!`;
-            summaryModal.style.display = 'flex';
-        }
+        };
         
-        function showLastOrder() {
-            lastOrderDetails.innerHTML = '';
-            lastOrderMessage.classList.add('hidden');
-            if (appState.lastOrder) {
-                const order = appState.lastOrder;
-                const date = new Date(order.date);
-                const dateString = date.toLocaleDateString();
-                const timeString = date.toLocaleTimeString();
-
-                const header = document.createElement('p');
-                header.className = 'text-gray-600 italic mb-4';
-                header.textContent = `Order placed on ${dateString} at ${timeString}`;
-                lastOrderDetails.appendChild(header);
-
-                order.items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = 'flex justify-between border-b border-gray-200 pb-2';
-                    const optionsText = item.customizations ? Object.entries(item.customizations)
-                        .map(([key, value]) => `${value}`).join(', ') : '';
-
-                    itemDiv.innerHTML = `
-                        <span>${item.name} (${optionsText ? optionsText + ', ' : ''}x${item.quantity})</span>
-                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
-                    `;
-                    lastOrderDetails.appendChild(itemDiv);
-                });
-
-                const totalDiv = document.createElement('div');
-                totalDiv.className = 'flex justify-between font-bold text-lg pt-2';
-                totalDiv.innerHTML = `<span>Total:</span><span>$${order.total.toFixed(2)}</span>`;
-                lastOrderDetails.appendChild(totalDiv);
-
-            } else {
-                lastOrderMessage.textContent = 'You have no past orders.';
-                lastOrderMessage.classList.remove('hidden');
-            }
-            lastOrderModal.style.display = 'flex';
-        }
-
-        function createMenuItemCard(item, isDailySpecial = false) {
-            const itemDiv = document.createElement('div');
-            itemDiv.className = 'bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center relative';
-            
-            if (isDailySpecial) {
-                const specialTag = document.createElement('div');
-                specialTag.className = 'absolute top-0 right-0 bg-red-600 text-white text-xs font-bold py-1 px-3 rounded-tr-lg rounded-bl-lg';
-                specialTag.textContent = 'SPECIAL';
-                itemDiv.appendChild(specialTag);
-            }
-            
-            const buttonText = item.options ? 'Customize' : 'Add to Cart';
-            const buttonClass = item.options ? 'customize-btn' : 'add-to-cart-btn';
-
-            let priceHTML = `<p class="text-2xl font-bold text-gray-900 mb-4">$${item.price.toFixed(2)}</p>`;
-            if (item.specialPrice) {
-                priceHTML = `
-                    <p class="text-2xl font-bold text-red-600 mb-2">$${parseFloat(item.specialPrice).toFixed(2)}</p>
-                    <p class="text-sm text-gray-500 line-through mb-4">$${item.price.toFixed(2)}</p>
-                `;
-            }
-
-            itemDiv.innerHTML += `
-                <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
-                <h3 class="text-xl font-bold text-gray-900 mb-2">${item.name}</h3>
-                <p class="text-gray-600 mb-4">${item.description}</p>
-                ${priceHTML}
-                <button data-id="${item.id}" class="${buttonClass} w-full bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
-                    ${buttonText}
-                </button>
-            `;
-            return itemDiv;
-        }
-
-        function renderFullMenu() {
-            menuItemsContainer.innerHTML = '';
-            menuItems.forEach(item => {
-                menuItemsContainer.appendChild(createMenuItemCard(item));
-            });
-        }
-
-        function renderEvents() {
-            const eventsContainer = document.getElementById('events-container');
-            eventsContainer.innerHTML = '';
+        // Function to render events
+        const renderEvents = () => {
+            const container = document.getElementById('events-container');
+            container.innerHTML = '';
             events.forEach(event => {
-                const eventDiv = document.createElement('div');
-                eventDiv.className = 'bg-gray-50 p-6 rounded-lg shadow-md';
-                eventDiv.innerHTML = `
+                const eventElement = document.createElement('div');
+                eventElement.className = 'bg-white p-6 rounded-lg shadow-md';
+                eventElement.innerHTML = `
                     <h3 class="text-xl font-bold text-gray-900 mb-2">${event.title}</h3>
-                    <p class="text-gray-600 mb-2"><span class="font-semibold">Date:</span> ${event.date}</p>
-                    <p class="text-gray-600 mb-2"><span class="font-semibold">Time:</span> ${event.time}</p>
+                    <p class="text-gray-600 text-sm mb-1">${event.date} at ${event.time}</p>
                     <p class="text-gray-600">${event.description}</p>
                 `;
-                eventsContainer.appendChild(eventDiv);
+                container.appendChild(eventElement);
             });
-        }
+        };
 
-        // --- Event Listeners and Initial Setup ---
-        window.addEventListener('load', () => {
-            renderAll();
-        });
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            renderLoyalty();
+            renderReviews();
+            renderEvents();
 
-        cartButton.addEventListener('click', () => {
-            cartModal.style.display = 'flex';
-        });
+            // Tab functionality for the menu
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-        closeCartModalButton.addEventListener('click', () => {
-            cartModal.style.display = 'none';
-        });
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab-id');
+                    
+                    // Deactivate all buttons and content
+                    tabButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-gray-900', 'text-white');
+                        btn.classList.add('text-gray-700', 'bg-gray-200', 'hover:bg-gray-300');
+                    });
+                    tabContents.forEach(content => content.classList.remove('active'));
 
-        closeSummaryModalButton.addEventListener('click', () => {
-            summaryModal.style.display = 'none';
-        });
+                    // Activate the clicked button and its content
+                    button.classList.add('active', 'bg-gray-900', 'text-white');
+                    button.classList.remove('text-gray-700', 'bg-gray-200', 'hover:bg-gray-300');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
 
-        closeCustomizationModalBtn.addEventListener('click', () => {
-            customizationModal.style.display = 'none';
-        });
+            // Add-to-cart buttons
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemElement = e.target.closest('.rounded-xl');
+                    const itemName = itemElement.querySelector('h3').textContent;
+                    const itemPrice = parseFloat(itemElement.querySelector('.text-lg').textContent.replace('$', ''));
+                    const existingItem = appState.cartItems.find(item => item.name === itemName);
 
-        closeLastOrderModalBtn.addEventListener('click', () => {
-            lastOrderModal.style.display = 'none';
-        });
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        appState.cartItems.push({ id: Date.now(), name: itemName, price: itemPrice, quantity: 1 });
+                    }
+                    saveState();
+                    updateCartCount();
+                    
+                    showMessage(e.target.closest('.p-6').querySelector('.flex'), `${itemName} added!`, true);
+                });
+            });
+            
+            cartButton.addEventListener('click', () => {
+                renderCart();
+                showModal(cartModal);
+            });
 
-        orderHistoryBtn.addEventListener('click', showLastOrder);
+            closeCartModalButton.addEventListener('click', () => {
+                hideModal(cartModal);
+            });
+            
+            // Handle clicks to remove item from cart
+            cartItemsContainer.addEventListener('click', (e) => {
+                if (e.target.closest('.remove-from-cart-btn')) {
+                    const button = e.target.closest('.remove-from-cart-btn');
+                    const itemId = parseInt(button.dataset.id);
+                    appState.cartItems = appState.cartItems.filter(item => item.id !== itemId);
+                    saveState();
+                    updateCartCount();
+                    renderCart();
+                }
+            });
+            
+            checkoutButton.addEventListener('click', () => {
+                if (appState.cartItems.length > 0) {
+                    const { subtotal, total } = calculateTotalPrice();
+                    const orderDetails = appState.cartItems.map(item => `${item.name} (${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`);
+                    
+                    summaryDetailsDiv.innerHTML = orderDetails.map(detail => `<p>${detail}</p>`).join('');
+                    summaryPointsDiv.textContent = `Earned ${Math.round(total)} loyalty points on this order!`;
+                    
+                    appState.lastOrder = {
+                        items: appState.cartItems,
+                        total: total,
+                        pointsEarned: Math.round(total),
+                        timestamp: new Date().toISOString()
+                    };
+                    appState.loyaltyPoints += Math.round(total);
+                    appState.cartItems = [];
+                    appState.giftCardBalance = 0;
+                    saveState();
+                    
+                    updateCartCount();
+                    renderLoyalty();
+                    
+                    hideModal(cartModal);
+                    showModal(summaryModal);
+                    
+                    // Reset cart and gift card message
+                    giftCardRedeemMessage.classList.add('hidden');
+                    giftCardRedeemForm.reset();
+                }
+            });
 
-        window.addEventListener('click', (event) => {
-            if (event.target === cartModal) {
-                cartModal.style.display = 'none';
-            }
-            if (event.target === summaryModal) {
-                summaryModal.style.display = 'none';
-            }
-            if (event.target === customizationModal) {
-                customizationModal.style.display = 'none';
-            }
-            if (event.target === lastOrderModal) {
-                lastOrderModal.style.display = 'none';
-            }
-        });
-        
-        // Use event delegation for dynamically added buttons
-        document.addEventListener('click', (e) => {
-            if (e.target.closest('.add-to-cart-btn')) {
-                const id = e.target.closest('.add-to-cart-btn').dataset.id;
-                const item = menuItems.find(i => i.id === parseInt(id));
-                addToCart(item);
-            } else if (e.target.closest('.customize-btn')) {
-                const id = e.target.closest('.customize-btn').dataset.id;
-                const item = menuItems.find(i => i.id === parseInt(id));
-                openCustomizationModal(item);
-            } else if (e.target.closest('.remove-from-cart-btn')) {
-                const index = e.target.closest('.remove-from-cart-btn').dataset.index;
-                removeFromCart(index);
-            }
-        });
+            closeSummaryModalButton.addEventListener('click', () => {
+                hideModal(summaryModal);
+            });
+            
+            giftCardForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('recipient-email').value;
+                const amount = parseFloat(document.getElementById('gift-amount').value);
+                const message = document.getElementById('gift-message').value;
+                const giftCardCode = crypto.randomUUID().split('-').join('').slice(0, 10);
+                
+                appState.giftCards[giftCardCode] = amount;
+                saveState();
+                
+                showMessage(giftCardMessageDiv, `Gift card for $${amount} purchased successfully! Code: ${giftCardCode}`, true);
+                giftCardForm.reset();
+            });
 
-        document.getElementById('checkout-button').addEventListener('click', checkout);
-        document.getElementById('giftCardForm').addEventListener('submit', generateGiftCard);
-        document.getElementById('gift-card-redeem-form').addEventListener('submit', redeemGiftCard);
-        document.getElementById('regenerate-special-btn').addEventListener('click', generateDailySpecial);
-        document.getElementById('review-form').addEventListener('submit', submitReview);
+            giftCardRedeemForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const code = document.getElementById('gift-card-code').value.trim();
+                const balance = appState.giftCards[code];
 
+                if (balance && balance > 0) {
+                    appState.giftCardBalance = balance;
+                    delete appState.giftCards[code];
+                    saveState();
+                    renderCart();
+                    showMessage(giftCardRedeemMessage, `Gift card for $${balance} applied!`, true);
+                } else {
+                    showMessage(giftCardRedeemMessage, 'Invalid or used gift card code.', false);
+                }
+            });
 
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const messageDiv = document.getElementById('form-message');
-            showModalMessage(messageDiv, 'Thank you for your message! We will get back to you shortly.', 'text-green-600');
-            document.getElementById('contactForm').reset();
-        });
+            regenerateSpecialBtn.addEventListener('click', async () => {
+                const prompt = "Generate a single, unique, exciting, and creative daily special for a modern coffee shop. The special should include a single food item and a single drink item. Provide a name and a short description for each. Respond with a JSON object containing 'drink' and 'food' properties, each with 'name' and 'description' strings. The drink must have a creative, unique name and a description of less than 20 words. The food must have a creative, unique name and a description of less than 20 words.";
+                const systemPrompt = "You are a creative coffee shop menu generator. Your task is to generate one unique daily special in JSON format. The names should be a playful twist on classic coffee shop items or entirely new creations.";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                    systemInstruction: { parts: [{ text: systemPrompt }] },
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "drink": { 
+                                    "type": "OBJECT",
+                                    "properties": {
+                                        "name": { "type": "STRING" },
+                                        "description": { "type": "STRING" }
+                                    }
+                                },
+                                "food": {
+                                    "type": "OBJECT",
+                                    "properties": {
+                                        "name": { "type": "STRING" },
+                                        "description": { "type": "STRING" }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                };
 
-        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const messageDiv = document.getElementById('newsletter-message');
-            showModalMessage(messageDiv, 'Thanks for subscribing!', 'text-green-400');
-            document.getElementById('newsletterForm').reset();
+                specialsItemsContainer.innerHTML = '<p class="text-center text-gray-600">Generating today\'s special...</p>';
+                
+                let attempts = 0;
+                const maxAttempts = 3;
+                while (attempts < maxAttempts) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.status === 429) {
+                            const delay = Math.pow(2, attempts) * 1000;
+                            await new Promise(res => setTimeout(res, delay));
+                            attempts++;
+                            continue;
+                        }
+
+                        const result = await response.json();
+                        const special = JSON.parse(result.candidates[0].content.parts[0].text);
+                        
+                        specialsItemsContainer.innerHTML = `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-2xl">
+                                <!-- Drink Special -->
+                                <div class="bg-yellow-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-bold text-yellow-900 mb-2">${special.drink.name}</h3>
+                                    <p class="text-yellow-800">${special.drink.description}</p>
+                                </div>
+                                <!-- Food Special -->
+                                <div class="bg-yellow-100 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                                    <h3 class="text-xl font-bold text-yellow-900 mb-2">${special.food.name}</h3>
+                                    <p class="text-yellow-800">${special.food.description}</p>
+                                </div>
+                            </div>
+                        `;
+                        return; // Exit on success
+                    } catch (error) {
+                        console.error('API call failed:', error);
+                        attempts++;
+                    }
+                }
+                specialsItemsContainer.innerHTML = '<p class="text-center text-red-500">Failed to generate a special. Please try again later.</p>';
+            });
+
+            // Review form submission
+            reviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('review-name').value;
+                const text = document.getElementById('review-text').value;
+                if (name && text) {
+                    const newReview = { name, text };
+                    appState.reviews.push(newReview);
+                    saveState();
+                    renderReviews();
+                    showMessage(document.getElementById('review-form-message'), 'Review submitted successfully!', true);
+                    reviewForm.reset();
+                } else {
+                    showMessage(document.getElementById('review-form-message'), 'Please fill out all fields.', false);
+                }
+            });
+
+            // Order history button
+            orderHistoryBtn.addEventListener('click', () => {
+                if (appState.lastOrder) {
+                    lastOrderDetails.innerHTML = appState.lastOrder.items.map(item => `<p>${item.name} (${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}</p>`).join('');
+                    lastOrderMessage.classList.add('hidden');
+                } else {
+                    lastOrderDetails.innerHTML = '';
+                    lastOrderMessage.textContent = 'You have no past orders.';
+                    lastOrderMessage.classList.remove('hidden');
+                }
+                showModal(lastOrderModal);
+            });
+
+            closeLastOrderModalBtn.addEventListener('click', () => {
+                hideModal(lastOrderModal);
+            });
+            
+            giftCardForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('recipient-email').value;
+                const amount = parseFloat(document.getElementById('gift-amount').value);
+                const message = document.getElementById('gift-message').value;
+                const giftCardCode = 'GC' + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+                appState.giftCards[giftCardCode] = amount;
+                saveState();
+
+                showMessage(giftCardMessageDiv, `Gift card for $${amount} purchased! Code: ${giftCardCode}`, true);
+                giftCardForm.reset();
+            });
+
+            // Contact form
+            document.getElementById('contactForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showMessage(document.getElementById('form-message'), 'Message sent successfully!', true);
+                document.getElementById('contactForm').reset();
+            });
+
+            // Newsletter form
+            document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                showMessage(document.getElementById('newsletter-message'), 'Subscribed successfully!', true);
+                document.getElementById('newsletterForm').reset();
+            });
         });
     </script>
 </body>
