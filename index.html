@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,10 +70,10 @@
             cursor: pointer;
         }
         .nav-link:hover {
-            color: #4B5563; /* Tailwind gray-600 */
+            color: #4B5563;
         }
         .nav-link.active {
-            color: #1F2937; /* Tailwind gray-900 */
+            color: #1F2937;
             border-bottom: 2px solid #1F2937;
         }
     </style>
@@ -86,12 +86,15 @@
             <a href="#" class="text-2xl font-bold text-gray-900">The Daily Grind</a>
             <div class="mt-4 sm:mt-0 space-x-2 sm:space-x-4 flex flex-wrap justify-center items-center">
                 <a href="#about" class="nav-link text-gray-700 font-semibold transition-colors duration-300">About</a>
+                <a href="#specials" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Specials</a>
                 <a href="#menu" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Menu</a>
+                <a href="#gift-cards" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Gift Cards</a>
                 <a href="#gallery" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Gallery</a>
                 <a href="#testimonials" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Testimonials</a>
+                <a href="#reviews" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Reviews</a>
                 <a href="#events" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Events</a>
                 <a href="#loyalty" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Loyalty</a>
-                <a href="#contact" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Contact</a>
+                <button id="order-history-btn" class="text-gray-700 font-semibold hover:text-gray-900 transition-colors duration-300">History</button>
                 <button id="cart-button" class="relative text-gray-700 font-semibold hover:text-gray-900 transition-colors duration-300">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -134,13 +137,58 @@
             </div>
         </div>
     </section>
+    
+    <!-- Daily Specials Section -->
+    <section id="specials" class="bg-yellow-50 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-yellow-900 mb-8">Daily Specials</h2>
+            <div class="flex justify-center mb-8">
+                <button id="regenerate-special-btn" class="bg-yellow-800 text-white font-semibold py-2 px-6 rounded-full hover:bg-yellow-900 transition-colors duration-300">
+                    See Today's Special
+                </button>
+            </div>
+            <div id="specials-items" class="flex justify-center">
+                <!-- Daily special will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
 
     <!-- Menu Section -->
     <section id="menu" class="bg-gray-50 py-16">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Our Menu</h2>
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Our Full Menu</h2>
             <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <!-- Menu items will be dynamically generated here -->
+                <!-- All menu items will be dynamically generated here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Card Section -->
+    <section id="gift-cards" class="bg-white py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-8">Give the Gift of Coffee</h2>
+            <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md">
+                <form id="giftCardForm">
+                    <div class="mb-4">
+                        <label for="recipient-email" class="block text-gray-700 font-semibold mb-2">Recipient Email</label>
+                        <input type="email" id="recipient-email" name="recipient-email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="gift-amount" class="block text-gray-700 font-semibold mb-2">Amount</label>
+                        <select id="gift-amount" name="gift-amount" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900" required>
+                            <option value="10">$10</option>
+                            <option value="25">$25</option>
+                            <option value="50">$50</option>
+                            <option value="100">$100</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="gift-message" class="block text-gray-700 font-semibold mb-2">Message (Optional)</label>
+                        <textarea id="gift-message" name="gift-message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">Purchase Gift Card</button>
+                    <div id="gift-card-message" class="mt-4 text-center hidden"></div>
+                </form>
             </div>
         </div>
     </section>
@@ -181,6 +229,31 @@
         </div>
     </section>
     
+    <!-- Customer Reviews Section -->
+    <section id="reviews" class="bg-gray-100 py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Customer Reviews</h2>
+            <div class="max-w-xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                <form id="review-form" class="mb-8">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4">Leave a Review</h3>
+                    <div class="mb-4">
+                        <label for="review-name" class="block text-gray-700 font-semibold mb-2">Name</label>
+                        <input type="text" id="review-name" name="review-name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="review-text" class="block text-gray-700 font-semibold mb-2">Your Review</label>
+                        <textarea id="review-text" name="review-text" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">Submit Review</button>
+                    <div id="review-form-message" class="mt-4 text-center hidden"></div>
+                </form>
+                <div id="reviews-list" class="space-y-6">
+                    <!-- Reviews will be dynamically generated here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Events Section -->
     <section id="events" class="bg-white py-16">
         <div class="container mx-auto px-4">
@@ -213,19 +286,6 @@
                     <!-- Rewards will be dynamically generated here -->
                 </div>
                 <div id="redeem-message" class="mt-4 text-center hidden"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Loyalty History Section -->
-    <section id="loyalty-history" class="bg-white py-16">
-        <div class="container mx-auto px-4">
-            <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-8">Redemption History</h2>
-            <div class="max-w-xl mx-auto bg-gray-50 p-8 rounded-lg shadow-md">
-                <ul id="history-list" class="space-y-4">
-                    <!-- Redemption history will be dynamically generated here -->
-                </ul>
-                <p id="no-history-message" class="text-center text-gray-500 mt-4 hidden">No rewards redeemed yet.</p>
             </div>
         </div>
     </section>
@@ -283,8 +343,26 @@
             <div id="cart-items" class="space-y-4">
                 <!-- Cart items will be dynamically generated here -->
             </div>
-            <div id="cart-total" class="font-bold text-xl mt-6 border-t pt-4 border-gray-200">
-                Total: $0.00
+            <div class="mt-4 pt-4 border-t border-gray-200">
+                <form id="gift-card-redeem-form" class="flex items-center gap-2 mb-4">
+                    <input type="text" id="gift-card-code" placeholder="Gift Card Code" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+                    <button type="submit" class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">Apply</button>
+                </form>
+                <div id="gift-card-redeem-message" class="text-sm hidden"></div>
+            </div>
+            <div class="font-bold text-xl mt-4 border-t pt-4 border-gray-200">
+                <div class="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">$0.00</span>
+                </div>
+                <div class="flex justify-between text-green-600" id="gift-card-discount-row" style="display: none;">
+                    <span>Gift Card:</span>
+                    <span id="gift-card-discount">-$0.00</span>
+                </div>
+                <div class="flex justify-between">
+                    <span>Total:</span>
+                    <span id="cart-total">$0.00</span>
+                </div>
             </div>
             <button id="checkout-button" class="mt-6 w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">
                 Checkout
@@ -317,29 +395,66 @@
             </button>
         </div>
     </div>
-    
+
+    <!-- Last Order Modal -->
+    <div id="last-order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-last-order-modal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Your Last Order</h2>
+            <div id="last-order-details" class="space-y-2"></div>
+            <p id="last-order-message" class="mt-4 text-center hidden"></p>
+        </div>
+    </div>
+
     <script>
+        // In-memory state, backed by localStorage
+        const STORAGE_KEYS = {
+            LOYALTY_POINTS: 'theDailyGrind.loyaltyPoints',
+            CART_ITEMS: 'theDailyGrind.cartItems',
+            GIFT_CARDS: 'theDailyGrind.giftCards',
+            LAST_ORDER: 'theDailyGrind.lastOrder',
+            DAILY_SPECIAL: 'theDailyGrind.dailySpecial',
+            REVIEWS: 'theDailyGrind.reviews'
+        };
+
+        let appState = {
+            loyaltyPoints: parseFloat(localStorage.getItem(STORAGE_KEYS.LOYALTY_POINTS)) || 0,
+            cartItems: JSON.parse(localStorage.getItem(STORAGE_KEYS.CART_ITEMS)) || [],
+            giftCards: JSON.parse(localStorage.getItem(STORAGE_KEYS.GIFT_CARDS)) || {},
+            giftCardBalance: 0,
+            lastOrder: JSON.parse(localStorage.getItem(STORAGE_KEYS.LAST_ORDER)) || null,
+            reviews: JSON.parse(localStorage.getItem(STORAGE_KEYS.REVIEWS)) || []
+        };
+        
+        // Data for the app
         const menuItems = [
-            { id: 1, name: 'Espresso', description: 'A concentrated shot of pure coffee.', price: 2.50, imageUrl: 'https://placehold.co/400x300/F4EADF/000000?text=Espresso' },
+            { id: 1, name: 'Espresso', description: 'A concentrated shot of pure coffee.', price: 2.50, imageUrl: 'https://placehold.co/400x300/F4EADF/000000?text=Espresso', isSpecial: false },
             { 
                 id: 2, name: 'Latte', description: 'Espresso with steamed milk and a thin layer of foam.', price: 4.00, imageUrl: 'https://placehold.co/400x300/C8B5A6/000000?text=Latte',
                 options: {
                     milk: [{ name: 'Whole Milk', price_modifier: 0.00 }, { name: 'Oat Milk', price_modifier: 0.50 }, { name: 'Almond Milk', price_modifier: 0.50 }],
                     size: [{ name: 'Small', price_modifier: -0.50 }, { name: 'Medium', price_modifier: 0.00 }, { name: 'Large', price_modifier: 0.75 }]
-                }
+                },
+                isSpecial: false
             },
-            { id: 3, name: 'Cappuccino', description: 'Espresso with steamed milk and a thick layer of foam.', price: 4.25, imageUrl: 'https://placehold.co/400x300/A0918C/000000?text=Cappuccino' },
+            { id: 3, name: 'Cappuccino', description: 'Espresso with steamed milk and a thick layer of foam.', price: 4.25, imageUrl: 'https://placehold.co/400x300/A0918C/000000?text=Cappuccino', isSpecial: false },
             { 
                 id: 4, name: 'Mocha', description: 'A decadent blend of espresso, chocolate, and steamed milk.', price: 4.75, imageUrl: 'https://placehold.co/400x300/8C7E77/000000?text=Mocha',
                 options: {
                     milk: [{ name: 'Whole Milk', price_modifier: 0.00 }, { name: 'Oat Milk', price_modifier: 0.50 }, { name: 'Almond Milk', price_modifier: 0.50 }],
                     syrup: [{ name: 'Vanilla', price_modifier: 0.50 }, { name: 'Caramel', price_modifier: 0.50 }, { name: 'Hazelnut', price_modifier: 0.50 }, { name: 'None', price_modifier: 0.00 }]
-                }
+                },
+                isSpecial: false
             },
-            { id: 5, name: 'Iced Coffee', description: 'Our signature cold brew, served over ice.', price: 3.50, imageUrl: 'https://placehold.co/400x300/D0D6F0/000000?text=Iced+Coffee' },
-            { id: 6, name: 'Croissant', description: 'Flaky, buttery pastry, baked fresh daily.', price: 3.00, imageUrl: 'https://placehold.co/400x300/F5E4C5/000000?text=Croissant' },
-            { id: 7, name: 'Blueberry Muffin', description: 'A moist muffin loaded with fresh blueberries.', price: 3.25, imageUrl: 'https://placehold.co/400x300/D2E5F2/000000?text=Blueberry+Muffin' },
-            { id: 8, name: 'Chai Latte', description: 'Spiced black tea with steamed milk.', price: 4.00, imageUrl: 'https://placehold.co/400x300/E8D2C2/000000?text=Chai+Latte' }
+            { id: 5, name: 'Iced Coffee', description: 'Our signature cold brew, served over ice.', price: 3.50, imageUrl: 'https://placehold.co/400x300/D0D6F0/000000?text=Iced+Coffee', isSpecial: false },
+            { id: 6, name: 'Croissant', description: 'Flaky, buttery pastry, baked fresh daily.', price: 3.00, imageUrl: 'https://placehold.co/400x300/F5E4C5/000000?text=Croissant', isSpecial: false },
+            { id: 7, name: 'Blueberry Muffin', description: 'A moist muffin loaded with fresh blueberries.', price: 3.25, imageUrl: 'https://placehold.co/400x300/D2E5F2/000000?text=Blueberry+Muffin', isSpecial: false },
+            { id: 8, name: 'Chai Latte', description: 'Spiced black tea with steamed milk.', price: 4.00, imageUrl: 'https://placehold.co/400x300/E8D2C2/000000?text=Chai+Latte', isSpecial: false },
+            { id: 9, name: 'Green Tea', description: 'Smooth green tea, served hot or iced.', price: 2.75, imageUrl: 'https://placehold.co/400x300/A9B79B/000000?text=Green+Tea', isSpecial: false },
+            { id: 10, name: 'Orange Juice', description: 'Freshly squeezed orange juice.', price: 3.50, imageUrl: 'https://placehold.co/400x300/F8D690/000000?text=Orange+Juice', isSpecial: false },
+            { id: 11, name: 'Lemon-Lime Soda', description: 'Crisp and refreshing lemon-lime soda.', price: 2.00, imageUrl: 'https://placehold.co/400x300/B8E8B6/000000?text=Lemon-Lime+Soda', isSpecial: false },
+            { id: 12, name: 'Earl Grey Tea', description: 'Classic black tea with bergamot.', price: 2.75, imageUrl: 'https://placehold.co/400x300/E5C099/000000?text=Earl+Grey+Tea', isSpecial: false },
+            { id: 13, name: 'Lemon Juice', description: 'A glass of pure, zesty lemon juice.', price: 3.50, imageUrl: 'https://placehold.co/400x300/FAD7A0/000000?text=Lemon+Juice', isSpecial: false }
         ];
 
         const events = [
@@ -354,13 +469,6 @@
             'Gold': { points: 250, reward: 'Redeem a free cup of coffee at 250 points.' }
         };
 
-        // In-memory state for the app, initialized from localStorage
-        let appState = {
-            loyaltyPoints: 0,
-            cartItems: [],
-            history: []
-        };
-        
         // UI Elements
         const cartButton = document.getElementById('cart-button');
         const cartCountSpan = document.getElementById('cart-count');
@@ -368,8 +476,10 @@
         const summaryModal = document.getElementById('summary-modal');
         const closeCartModalButton = document.getElementById('close-cart-modal');
         const closeSummaryModalButton = document.getElementById('close-summary-modal');
+        const specialsItemsContainer = document.getElementById('specials-items');
         const menuItemsContainer = document.getElementById('menu-items');
         const cartItemsContainer = document.getElementById('cart-items');
+        const cartSubtotalSpan = document.getElementById('cart-subtotal');
         const cartTotalSpan = document.getElementById('cart-total');
         const checkoutButton = document.getElementById('checkout-button');
         const checkoutMessageDiv = document.getElementById('checkout-message');
@@ -378,45 +488,36 @@
         const pointsProgressDiv = document.getElementById('points-progress');
         const pointsStatusDiv = document.getElementById('points-status');
         const rewardsListDiv = document.getElementById('rewards-list');
-        const historyListUl = document.getElementById('history-list');
-        const noHistoryMessage = document.getElementById('no-history-message');
         const summaryDetailsDiv = document.getElementById('summary-details');
         const summaryPointsDiv = document.getElementById('summary-points');
-        // New UI Elements for Customization
         const customizationModal = document.getElementById('customization-modal');
         const closeCustomizationModalBtn = document.getElementById('close-customization-modal');
         const customizationTitle = document.getElementById('customization-title');
         const customizationPrice = document.getElementById('customization-price');
         const customizationOptionsContainer = document.getElementById('customization-options');
         const addToCartCustomBtn = document.getElementById('add-to-cart-custom-btn');
-
-        // Functions to manage state persistence using localStorage
-        function saveState() {
-            try {
-                localStorage.setItem('coffeeShopState', JSON.stringify(appState));
-            } catch (error) {
-                console.error('Could not save state to localStorage:', error);
-            }
-        }
-
-        function loadState() {
-            try {
-                const serializedState = localStorage.getItem('coffeeShopState');
-                if (serializedState === null) {
-                    return undefined;
-                }
-                appState = JSON.parse(serializedState);
-            } catch (error) {
-                console.error('Could not load state from localStorage:', error);
-                return undefined;
-            }
-        }
+        const giftCardForm = document.getElementById('giftCardForm');
+        const giftCardRedeemForm = document.getElementById('gift-card-redeem-form');
+        const giftCardRedeemMessage = document.getElementById('gift-card-redeem-message');
+        const giftCardDiscountRow = document.getElementById('gift-card-discount-row');
+        const giftCardDiscountSpan = document.getElementById('gift-card-discount');
+        const regenerateSpecialBtn = document.getElementById('regenerate-special-btn');
+        const reviewForm = document.getElementById('review-form');
+        const reviewsListContainer = document.getElementById('reviews-list');
+        const lastOrderModal = document.getElementById('last-order-modal');
+        const closeLastOrderModalBtn = document.getElementById('close-last-order-modal');
+        const orderHistoryBtn = document.getElementById('order-history-btn');
+        const lastOrderDetails = document.getElementById('last-order-details');
+        const lastOrderMessage = document.getElementById('last-order-message');
 
         // --- Core UI Rendering Functions ---
         function renderAll() {
             renderCart();
             renderLoyalty();
-            renderHistory();
+            renderSpecials();
+            renderFullMenu();
+            renderReviews();
+            renderEvents();
         }
 
         function renderLoyalty() {
@@ -444,6 +545,7 @@
             pointsProgressDiv.style.width = `${progress}%`;
             
             renderRewards();
+            localStorage.setItem(STORAGE_KEYS.LOYALTY_POINTS, appState.loyaltyPoints);
         }
 
         function renderRewards() {
@@ -465,32 +567,16 @@
             }
         }
 
-        function renderHistory() {
-            historyListUl.innerHTML = '';
-            if (appState.history.length === 0) {
-                noHistoryMessage.classList.remove('hidden');
-            } else {
-                noHistoryMessage.classList.add('hidden');
-                appState.history.forEach(item => {
-                    const li = document.createElement('li');
-                    li.className = 'flex justify-between items-center';
-                    li.innerHTML = `
-                        <span class="font-semibold">${item.reward}</span>
-                        <span class="text-sm text-gray-500">${new Date(item.redeemedAt).toLocaleDateString()}</span>
-                    `;
-                    historyListUl.appendChild(li);
-                });
-            }
-        }
-
         function renderCart() {
             cartItemsContainer.innerHTML = '';
-            let total = 0;
+            let subtotal = 0;
             cartCountSpan.textContent = appState.cartItems.length;
 
             if (appState.cartItems.length === 0) {
                 cartItemsContainer.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
-                cartTotalSpan.textContent = 'Total: $0.00';
+                cartSubtotalSpan.textContent = '$0.00';
+                cartTotalSpan.textContent = '$0.00';
+                giftCardDiscountRow.style.display = 'none';
                 checkoutButton.disabled = true;
             } else {
                 appState.cartItems.forEach((item, index) => {
@@ -513,10 +599,68 @@
                         </button>
                     `;
                     cartItemsContainer.appendChild(itemDiv);
-                    total += item.price * item.quantity;
+                    subtotal += item.price * item.quantity;
                 });
-                cartTotalSpan.textContent = `Total: $${total.toFixed(2)}`;
+                
+                let total = subtotal;
+                if (appState.giftCardBalance > 0) {
+                    const discount = Math.min(total, appState.giftCardBalance);
+                    total = Math.max(0, total - discount);
+                    giftCardDiscountRow.style.display = 'flex';
+                    giftCardDiscountSpan.textContent = `-$${discount.toFixed(2)}`;
+                } else {
+                    giftCardDiscountRow.style.display = 'none';
+                }
+
+                cartSubtotalSpan.textContent = `$${subtotal.toFixed(2)}`;
+                cartTotalSpan.textContent = `$${total.toFixed(2)}`;
                 checkoutButton.disabled = false;
+            }
+            localStorage.setItem(STORAGE_KEYS.CART_ITEMS, JSON.stringify(appState.cartItems));
+        }
+
+        function renderSpecials() {
+            specialsItemsContainer.innerHTML = '';
+            const dailySpecial = JSON.parse(localStorage.getItem(STORAGE_KEYS.DAILY_SPECIAL));
+            if (dailySpecial && new Date(dailySpecial.date).getDate() === new Date().getDate()) {
+                // If special exists for today, render it
+                specialsItemsContainer.appendChild(createMenuItemCard(dailySpecial.item, true));
+            } else {
+                // Otherwise, prompt user to generate
+                specialsItemsContainer.innerHTML = '<p class="text-center text-gray-500">Click the button to generate today\'s special!</p>';
+            }
+        }
+
+        function generateDailySpecial() {
+            const specials = menuItems.filter(item => !item.options); // Simple items for special
+            const randomIndex = Math.floor(Math.random() * specials.length);
+            const specialItem = { ...specials[randomIndex] }; // Clone the object
+            specialItem.isSpecial = true;
+            specialItem.specialPrice = (specialItem.price * 0.85).toFixed(2); // 15% discount
+            
+            const todaySpecial = {
+                date: new Date(),
+                item: specialItem
+            };
+            localStorage.setItem(STORAGE_KEYS.DAILY_SPECIAL, JSON.stringify(todaySpecial));
+            renderSpecials();
+        }
+        
+        function renderReviews() {
+            reviewsListContainer.innerHTML = '';
+            if (appState.reviews.length === 0) {
+                reviewsListContainer.innerHTML = `<p class="text-center text-gray-500">No reviews yet. Be the first to leave one!</p>`;
+            } else {
+                appState.reviews.forEach(review => {
+                    const reviewDiv = document.createElement('div');
+                    reviewDiv.className = 'bg-gray-50 p-6 rounded-lg shadow-sm';
+                    reviewDiv.innerHTML = `
+                        <p class="font-bold text-gray-900 mb-2">${review.name}</p>
+                        <p class="text-gray-600 italic">"${review.text}"</p>
+                        <p class="text-xs text-gray-500 mt-2">${new Date(review.date).toLocaleDateString()}</p>
+                    `;
+                    reviewsListContainer.appendChild(reviewDiv);
+                });
             }
         }
 
@@ -524,9 +668,7 @@
         function redeemReward(pointsCost, rewardName) {
             if (appState.loyaltyPoints >= pointsCost) {
                 appState.loyaltyPoints -= pointsCost;
-                appState.history.push({ reward: rewardName, redeemedAt: new Date().toISOString() });
-                saveState();
-                renderAll();
+                renderLoyalty();
                 showModalMessage(document.getElementById('redeem-message'), `Successfully redeemed ${rewardName}!`, 'text-green-600');
             } else {
                 showModalMessage(document.getElementById('redeem-message'), "Not enough points to redeem this reward.", 'text-red-600');
@@ -538,39 +680,34 @@
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                appState.cartItems.push({ ...item, quantity: 1 });
+                const newItem = {
+                    ...item,
+                    price: item.specialPrice || item.price,
+                    quantity: 1
+                };
+                appState.cartItems.push(newItem);
             }
-            saveState();
             renderCart();
             showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
         }
 
         function addToCartFromCustomization(item, customizations, price) {
-            const existingItem = appState.cartItems.find(i => 
-                i.id === item.id && 
-                JSON.stringify(i.customizations) === JSON.stringify(customizations)
-            );
-            
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                appState.cartItems.push({ 
-                    ...item, 
-                    price: price, // Use the customized price
-                    customizations: customizations,
-                    quantity: 1 
-                });
-            }
-            saveState();
-            renderCart();
+            const newItem = { 
+                id: item.id, 
+                name: item.name, 
+                price: price, 
+                customizations: customizations,
+                quantity: 1
+            };
+            appState.cartItems.push(newItem);
             customizationModal.style.display = 'none';
+            renderCart();
             showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
         }
 
-        function removeFromCart(itemIndex) {
-            appState.cartItems.splice(itemIndex, 1);
-            saveState();
-            renderCart(); // Only re-render cart for efficiency
+        function removeFromCart(index) {
+            appState.cartItems.splice(index, 1);
+            renderCart();
             showModalMessage(checkoutMessageDiv, `Item removed from cart.`, 'text-red-600');
         }
 
@@ -580,18 +717,106 @@
                 return;
             }
             
-            const total = appState.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-            const pointsEarned = Math.floor(total);
-            const items = [...appState.cartItems]; // Store a copy for the summary
+            let total = appState.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            
+            if (appState.giftCardBalance > 0) {
+                total = Math.max(0, total - appState.giftCardBalance);
+                appState.giftCardBalance = 0;
+            }
 
+            const pointsEarned = Math.floor(total);
             appState.loyaltyPoints += pointsEarned;
+            
+            const lastOrder = {
+                items: [...appState.cartItems],
+                total: total,
+                date: new Date()
+            };
+
             appState.cartItems = [];
+            localStorage.setItem(STORAGE_KEYS.LAST_ORDER, JSON.stringify(lastOrder));
+
+            renderCart();
+            renderLoyalty();
+
+            showOrderSummary(lastOrder, pointsEarned);
+        }
+        
+        function generateGiftCard(e) {
+            e.preventDefault();
+            const email = document.getElementById('recipient-email').value;
+            const amount = parseFloat(document.getElementById('gift-amount').value);
+            const message = document.getElementById('gift-message').value;
             
-            saveState();
-            renderAll();
+            const generateCode = () => {
+                let result = '';
+                const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+                for (let i = 0; i < 8; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            };
+
+            const giftCardCode = generateCode();
             
-            // Show order summary
-            showOrderSummary(items, total, pointsEarned);
+            appState.giftCards[giftCardCode] = { amount, email, message, redeemed: false };
+            localStorage.setItem(STORAGE_KEYS.GIFT_CARDS, JSON.stringify(appState.giftCards));
+
+            const messageDiv = document.getElementById('gift-card-message');
+            messageDiv.innerHTML = `
+                <p class="font-bold text-green-600">Gift Card Purchased!</p>
+                <p>The code is: <span class="font-mono text-gray-800">${giftCardCode}</span></p>
+                <button onclick="copyToClipboard('${giftCardCode}')" class="text-blue-500 hover:text-blue-700">Copy Code</button>
+            `;
+            messageDiv.classList.remove('hidden');
+            giftCardForm.reset();
+        }
+        
+        function redeemGiftCard(e) {
+            e.preventDefault();
+            const code = document.getElementById('gift-card-code').value.trim().toUpperCase();
+            if (!code) {
+                showModalMessage(giftCardRedeemMessage, "Please enter a code.", 'text-red-600');
+                return;
+            }
+            
+            if (appState.giftCardBalance > 0) {
+                showModalMessage(giftCardRedeemMessage, "A gift card has already been applied.", 'text-red-600');
+                return;
+            }
+            
+            const giftCard = appState.giftCards[code];
+            
+            if (giftCard && !giftCard.redeemed) {
+                appState.giftCardBalance = giftCard.amount;
+                giftCard.redeemed = true;
+                localStorage.setItem(STORAGE_KEYS.GIFT_CARDS, JSON.stringify(appState.giftCards));
+                renderCart();
+                showModalMessage(giftCardRedeemMessage, `Successfully applied a $${appState.giftCardBalance} gift card!`, 'text-green-600');
+            } else {
+                showModalMessage(giftCardRedeemMessage, "Invalid or already redeemed gift card code.", 'text-red-600');
+            }
+        }
+
+        window.copyToClipboard = function(text) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+        };
+        
+        function submitReview(e) {
+            e.preventDefault();
+            const name = document.getElementById('review-name').value;
+            const text = document.getElementById('review-text').value;
+            const newReview = { name, text, date: new Date() };
+            appState.reviews.push(newReview);
+            localStorage.setItem(STORAGE_KEYS.REVIEWS, JSON.stringify(appState.reviews));
+            renderReviews();
+            showModalMessage(document.getElementById('review-form-message'), 'Review submitted successfully!', 'text-green-600');
+            reviewForm.reset();
         }
 
         // --- UI Utility Functions ---
@@ -601,14 +826,14 @@
             element.classList.remove('hidden');
             setTimeout(() => {
                 element.classList.add('hidden');
-            }, 3000); // Hide message after 3 seconds
+            }, 3000);
         }
 
-        function showOrderSummary(items, total, pointsEarned) {
-            cartModal.style.display = 'none'; // Close the cart modal
+        function showOrderSummary(order, pointsEarned) {
+            cartModal.style.display = 'none';
             summaryDetailsDiv.innerHTML = '';
             
-            items.forEach(item => {
+            order.items.forEach(item => {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'flex justify-between border-b border-gray-200 pb-2';
                 const optionsText = item.customizations ? Object.entries(item.customizations)
@@ -623,112 +848,96 @@
 
             const totalDiv = document.createElement('div');
             totalDiv.className = 'flex justify-between font-bold text-lg pt-2';
-            totalDiv.innerHTML = `<span>Total:</span><span>$${total.toFixed(2)}</span>`;
+            totalDiv.innerHTML = `<span>Total:</span><span>$${order.total.toFixed(2)}</span>`;
             summaryDetailsDiv.appendChild(totalDiv);
 
             summaryPointsDiv.textContent = `You earned ${pointsEarned} points with this order!`;
             summaryModal.style.display = 'flex';
         }
+        
+        function showLastOrder() {
+            lastOrderDetails.innerHTML = '';
+            lastOrderMessage.classList.add('hidden');
+            if (appState.lastOrder) {
+                const order = appState.lastOrder;
+                const date = new Date(order.date);
+                const dateString = date.toLocaleDateString();
+                const timeString = date.toLocaleTimeString();
 
-        function renderMenuItems() {
-            menuItemsContainer.innerHTML = '';
-            menuItems.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center';
-                
-                const buttonText = item.options ? 'Customize' : 'Add to Cart';
-                const buttonClass = item.options ? 'customize-btn' : 'add-to-cart-btn';
+                const header = document.createElement('p');
+                header.className = 'text-gray-600 italic mb-4';
+                header.textContent = `Order placed on ${dateString} at ${timeString}`;
+                lastOrderDetails.appendChild(header);
 
-                itemDiv.innerHTML = `
-                    <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">${item.name}</h3>
-                    <p class="text-gray-600 mb-4">${item.description}</p>
-                    <p class="text-2xl font-bold text-gray-900 mb-4">$${item.price.toFixed(2)}</p>
-                    <button data-id="${item.id}" class="${buttonClass} w-full bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
-                        ${buttonText}
-                    </button>
-                `;
-                menuItemsContainer.appendChild(itemDiv);
-            });
+                order.items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'flex justify-between border-b border-gray-200 pb-2';
+                    const optionsText = item.customizations ? Object.entries(item.customizations)
+                        .map(([key, value]) => `${value}`).join(', ') : '';
+
+                    itemDiv.innerHTML = `
+                        <span>${item.name} (${optionsText ? optionsText + ', ' : ''}x${item.quantity})</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    lastOrderDetails.appendChild(itemDiv);
+                });
+
+                const totalDiv = document.createElement('div');
+                totalDiv.className = 'flex justify-between font-bold text-lg pt-2';
+                totalDiv.innerHTML = `<span>Total:</span><span>$${order.total.toFixed(2)}</span>`;
+                lastOrderDetails.appendChild(totalDiv);
+
+            } else {
+                lastOrderMessage.textContent = 'You have no past orders.';
+                lastOrderMessage.classList.remove('hidden');
+            }
+            lastOrderModal.style.display = 'flex';
         }
 
-        function openCustomizationModal(item) {
-            customizationTitle.textContent = item.name;
-            customizationOptionsContainer.innerHTML = '';
-            let currentPrice = item.price;
-
-            customizationPrice.textContent = `$${currentPrice.toFixed(2)}`;
-
-            const updatePrice = () => {
-                let newPrice = item.price;
-                const selectedOptions = {};
-                // Iterate over each option category
-                for (const key in item.options) {
-                    const selector = `input[name="${key}"]:checked`;
-                    const selectedInput = customizationOptionsContainer.querySelector(selector);
-                    if (selectedInput) {
-                        const modifier = parseFloat(selectedInput.dataset.modifier);
-                        newPrice += modifier;
-                        selectedOptions[key] = selectedInput.dataset.name;
-                    }
-                }
-                customizationPrice.textContent = `$${newPrice.toFixed(2)}`;
-            };
-
-            for (const key in item.options) {
-                const optionGroup = item.options[key];
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'space-y-2';
-                groupDiv.innerHTML = `<p class="font-semibold capitalize">${key}:</p>`;
-
-                optionGroup.forEach((option, index) => {
-                    const optionId = `option-${item.id}-${key}-${index}`;
-                    const label = document.createElement('label');
-                    label.htmlFor = optionId;
-                    label.className = 'flex items-center space-x-2 cursor-pointer';
-
-                    const input = document.createElement('input');
-                    input.type = 'radio';
-                    input.name = key;
-                    input.id = optionId;
-                    input.dataset.modifier = option.price_modifier;
-                    input.dataset.name = option.name;
-                    input.className = 'form-radio text-gray-900 h-4 w-4';
-                    
-                    if (index === 0) {
-                        input.checked = true;
-                    }
-                    
-                    input.addEventListener('change', updatePrice);
-
-                    label.appendChild(input);
-                    label.innerHTML += `<span>${option.name} ($${option.price_modifier >= 0 ? '+' : ''}${option.price_modifier.toFixed(2)})</span>`;
-                    
-                    groupDiv.appendChild(label);
-                });
-                customizationOptionsContainer.appendChild(groupDiv);
+        function createMenuItemCard(item, isDailySpecial = false) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center relative';
+            
+            if (isDailySpecial) {
+                const specialTag = document.createElement('div');
+                specialTag.className = 'absolute top-0 right-0 bg-red-600 text-white text-xs font-bold py-1 px-3 rounded-tr-lg rounded-bl-lg';
+                specialTag.textContent = 'SPECIAL';
+                itemDiv.appendChild(specialTag);
             }
             
-            updatePrice();
-            
-            addToCartCustomBtn.onclick = () => {
-                const customizations = {};
-                let finalPrice = item.price;
-                for (const key in item.options) {
-                    const selectedInput = customizationOptionsContainer.querySelector(`input[name="${key}"]:checked`);
-                    if (selectedInput) {
-                        finalPrice += parseFloat(selectedInput.dataset.modifier);
-                        customizations[key] = selectedInput.dataset.name;
-                    }
-                }
-                addToCartFromCustomization(item, customizations, finalPrice);
-            };
+            const buttonText = item.options ? 'Customize' : 'Add to Cart';
+            const buttonClass = item.options ? 'customize-btn' : 'add-to-cart-btn';
 
-            customizationModal.style.display = 'flex';
+            let priceHTML = `<p class="text-2xl font-bold text-gray-900 mb-4">$${item.price.toFixed(2)}</p>`;
+            if (item.specialPrice) {
+                priceHTML = `
+                    <p class="text-2xl font-bold text-red-600 mb-2">$${parseFloat(item.specialPrice).toFixed(2)}</p>
+                    <p class="text-sm text-gray-500 line-through mb-4">$${item.price.toFixed(2)}</p>
+                `;
+            }
+
+            itemDiv.innerHTML += `
+                <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">${item.name}</h3>
+                <p class="text-gray-600 mb-4">${item.description}</p>
+                ${priceHTML}
+                <button data-id="${item.id}" class="${buttonClass} w-full bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
+                    ${buttonText}
+                </button>
+            `;
+            return itemDiv;
+        }
+
+        function renderFullMenu() {
+            menuItemsContainer.innerHTML = '';
+            menuItems.forEach(item => {
+                menuItemsContainer.appendChild(createMenuItemCard(item));
+            });
         }
 
         function renderEvents() {
             const eventsContainer = document.getElementById('events-container');
+            eventsContainer.innerHTML = '';
             events.forEach(event => {
                 const eventDiv = document.createElement('div');
                 eventDiv.className = 'bg-gray-50 p-6 rounded-lg shadow-md';
@@ -742,40 +951,11 @@
             });
         }
 
-        // --- Event Listeners and Initial Load ---
-        window.onload = function() {
-            loadState();
-            renderMenuItems();
-            renderEvents();
+        // --- Event Listeners and Initial Setup ---
+        window.addEventListener('load', () => {
             renderAll();
-        };
-
-        // Event Delegation for "Add to Cart" and "Customize" buttons
-        menuItemsContainer.addEventListener('click', (e) => {
-            const targetButton = e.target.closest('button');
-            if (targetButton) {
-                const itemId = parseInt(targetButton.dataset.id);
-                const item = menuItems.find(item => item.id === itemId);
-                if (!item) return;
-
-                if (targetButton.classList.contains('add-to-cart-btn')) {
-                    addToCart(item);
-                } else if (targetButton.classList.contains('customize-btn')) {
-                    openCustomizationModal(item);
-                }
-            }
         });
 
-        // Event Delegation for "Remove" buttons in the cart modal
-        cartItemsContainer.addEventListener('click', (e) => {
-            const targetButton = e.target.closest('.remove-from-cart-btn');
-            if (targetButton) {
-                const itemIndex = parseInt(targetButton.dataset.index);
-                removeFromCart(itemIndex);
-            }
-        });
-
-        // Modal event listeners
         cartButton.addEventListener('click', () => {
             cartModal.style.display = 'flex';
         });
@@ -787,10 +967,16 @@
         closeSummaryModalButton.addEventListener('click', () => {
             summaryModal.style.display = 'none';
         });
-        
+
         closeCustomizationModalBtn.addEventListener('click', () => {
             customizationModal.style.display = 'none';
         });
+
+        closeLastOrderModalBtn.addEventListener('click', () => {
+            lastOrderModal.style.display = 'none';
+        });
+
+        orderHistoryBtn.addEventListener('click', showLastOrder);
 
         window.addEventListener('click', (event) => {
             if (event.target === cartModal) {
@@ -802,24 +988,46 @@
             if (event.target === customizationModal) {
                 customizationModal.style.display = 'none';
             }
+            if (event.target === lastOrderModal) {
+                lastOrderModal.style.display = 'none';
+            }
         });
-
-        checkoutButton.addEventListener('click', checkout);
         
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formMessage = document.getElementById('form-message');
-            formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-            formMessage.classList.remove('hidden');
-            formMessage.classList.add('text-green-600', 'font-bold');
+        // Use event delegation for dynamically added buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.add-to-cart-btn')) {
+                const id = e.target.closest('.add-to-cart-btn').dataset.id;
+                const item = menuItems.find(i => i.id === parseInt(id));
+                addToCart(item);
+            } else if (e.target.closest('.customize-btn')) {
+                const id = e.target.closest('.customize-btn').dataset.id;
+                const item = menuItems.find(i => i.id === parseInt(id));
+                openCustomizationModal(item);
+            } else if (e.target.closest('.remove-from-cart-btn')) {
+                const index = e.target.closest('.remove-from-cart-btn').dataset.index;
+                removeFromCart(index);
+            }
         });
 
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+        document.getElementById('checkout-button').addEventListener('click', checkout);
+        document.getElementById('giftCardForm').addEventListener('submit', generateGiftCard);
+        document.getElementById('gift-card-redeem-form').addEventListener('submit', redeemGiftCard);
+        document.getElementById('regenerate-special-btn').addEventListener('click', generateDailySpecial);
+        document.getElementById('review-form').addEventListener('submit', submitReview);
+
+
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const newsletterMessage = document.getElementById('newsletter-message');
-            newsletterMessage.textContent = 'Thanks for subscribing! Check your email for a confirmation.';
-            newsletterMessage.classList.remove('hidden');
-            newsletterMessage.classList.add('text-green-400', 'font-bold');
+            const messageDiv = document.getElementById('form-message');
+            showModalMessage(messageDiv, 'Thank you for your message! We will get back to you shortly.', 'text-green-600');
+            document.getElementById('contactForm').reset();
+        });
+
+        document.getElementById('newsletterForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messageDiv = document.getElementById('newsletter-message');
+            showModalMessage(messageDiv, 'Thanks for subscribing!', 'text-green-400');
+            document.getElementById('newsletterForm').reset();
         });
     </script>
 </body>
