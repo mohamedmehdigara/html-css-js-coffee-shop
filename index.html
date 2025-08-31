@@ -8,15 +8,83 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-section {
+            background-image: url('https://placehold.co/1920x1080/443B33/FFFFFF?text=Coffee+Shop+Interior');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            position: relative;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-section > div {
+            position: relative;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            position: relative;
+            max-width: 90%;
+            width: 500px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .nav-link:hover {
+            color: #4B5563; /* Tailwind gray-600 */
+        }
+        .nav-link.active {
+            color: #1F2937; /* Tailwind gray-900 */
+            border-bottom: 2px solid #1F2937;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <nav class="container mx-auto px-4 py-4 flex justify-between items-center flex-wrap">
+        <nav class="container mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center flex-wrap">
             <a href="#" class="text-2xl font-bold text-gray-900">The Daily Grind</a>
-            <div class="mt-2 sm:mt-0 space-x-2 sm:space-x-4 flex items-center">
+            <div class="mt-4 sm:mt-0 space-x-2 sm:space-x-4 flex flex-wrap justify-center items-center">
                 <a href="#about" class="nav-link text-gray-700 font-semibold transition-colors duration-300">About</a>
                 <a href="#menu" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Menu</a>
                 <a href="#gallery" class="nav-link text-gray-700 font-semibold transition-colors duration-300">Gallery</a>
@@ -28,7 +96,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.182 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                     </svg>
-                    <span id="cart-count" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
+                    <span id="cart-count" class="absolute -top-2 -right-2 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">0</span>
                 </button>
             </div>
         </nav>
@@ -71,8 +139,7 @@
     <section id="menu" class="bg-gray-50 py-16">
         <div class="container mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">Our Menu</h2>
-            
-            <div id="menu-items" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="menu-items" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
                 <!-- Menu items will be dynamically generated here -->
             </div>
         </div>
@@ -225,7 +292,535 @@
             <div id="checkout-message" class="mt-4 text-center hidden text-green-600 font-bold"></div>
         </div>
     </div>
+
+    <!-- Order Summary Modal -->
+    <div id="summary-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-summary-modal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Order Summary</h2>
+            <div id="summary-details" class="space-y-2"></div>
+            <p id="summary-points" class="font-bold text-xl mt-4"></p>
+        </div>
+    </div>
     
-    <script src="script.js"></script>
+    <!-- Customization Modal -->
+    <div id="customization-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="close-customization-modal">&times;</span>
+            <h2 class="text-2xl font-bold mb-4" id="customization-title"></h2>
+            <p id="customization-price" class="text-xl font-bold mb-4"></p>
+            <div id="customization-options" class="space-y-4">
+                <!-- Options will be dynamically added here -->
+            </div>
+            <button id="add-to-cart-custom-btn" class="mt-6 w-full bg-gray-900 text-white font-semibold py-3 rounded-lg hover:bg-gray-700 transition-colors duration-300">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const menuItems = [
+            { id: 1, name: 'Espresso', description: 'A concentrated shot of pure coffee.', price: 2.50, imageUrl: 'https://placehold.co/400x300/F4EADF/000000?text=Espresso' },
+            { 
+                id: 2, name: 'Latte', description: 'Espresso with steamed milk and a thin layer of foam.', price: 4.00, imageUrl: 'https://placehold.co/400x300/C8B5A6/000000?text=Latte',
+                options: {
+                    milk: [{ name: 'Whole Milk', price_modifier: 0.00 }, { name: 'Oat Milk', price_modifier: 0.50 }, { name: 'Almond Milk', price_modifier: 0.50 }],
+                    size: [{ name: 'Small', price_modifier: -0.50 }, { name: 'Medium', price_modifier: 0.00 }, { name: 'Large', price_modifier: 0.75 }]
+                }
+            },
+            { id: 3, name: 'Cappuccino', description: 'Espresso with steamed milk and a thick layer of foam.', price: 4.25, imageUrl: 'https://placehold.co/400x300/A0918C/000000?text=Cappuccino' },
+            { 
+                id: 4, name: 'Mocha', description: 'A decadent blend of espresso, chocolate, and steamed milk.', price: 4.75, imageUrl: 'https://placehold.co/400x300/8C7E77/000000?text=Mocha',
+                options: {
+                    milk: [{ name: 'Whole Milk', price_modifier: 0.00 }, { name: 'Oat Milk', price_modifier: 0.50 }, { name: 'Almond Milk', price_modifier: 0.50 }],
+                    syrup: [{ name: 'Vanilla', price_modifier: 0.50 }, { name: 'Caramel', price_modifier: 0.50 }, { name: 'Hazelnut', price_modifier: 0.50 }, { name: 'None', price_modifier: 0.00 }]
+                }
+            },
+            { id: 5, name: 'Iced Coffee', description: 'Our signature cold brew, served over ice.', price: 3.50, imageUrl: 'https://placehold.co/400x300/D0D6F0/000000?text=Iced+Coffee' },
+            { id: 6, name: 'Croissant', description: 'Flaky, buttery pastry, baked fresh daily.', price: 3.00, imageUrl: 'https://placehold.co/400x300/F5E4C5/000000?text=Croissant' },
+            { id: 7, name: 'Blueberry Muffin', description: 'A moist muffin loaded with fresh blueberries.', price: 3.25, imageUrl: 'https://placehold.co/400x300/D2E5F2/000000?text=Blueberry+Muffin' },
+            { id: 8, name: 'Chai Latte', description: 'Spiced black tea with steamed milk.', price: 4.00, imageUrl: 'https://placehold.co/400x300/E8D2C2/000000?text=Chai+Latte' }
+        ];
+
+        const events = [
+            { id: 1, title: 'Live Acoustic Night', date: 'Saturday, July 20th', time: '7:00 PM', description: 'Relax and enjoy live acoustic music from local artist Sarah Johnson.' },
+            { id: 2, title: 'Coffee Cupping Workshop', date: 'Sunday, July 21st', time: '2:00 PM', description: 'Learn to taste coffee like a professional barista and discover the nuances of different beans.' },
+            { id: 3, title: 'Open Mic Poetry', date: 'Friday, July 26th', time: '8:00 PM', description: 'Share your poems or just listen to others. All are welcome!' }
+        ];
+
+        const loyaltyTiers = {
+            'Bronze': { points: 0, reward: 'Redeem a free cookie at 50 points.' },
+            'Silver': { points: 100, reward: 'Redeem any pastry at 100 points.' },
+            'Gold': { points: 250, reward: 'Redeem a free cup of coffee at 250 points.' }
+        };
+
+        // In-memory state for the app, initialized from localStorage
+        let appState = {
+            loyaltyPoints: 0,
+            cartItems: [],
+            history: []
+        };
+        
+        // UI Elements
+        const cartButton = document.getElementById('cart-button');
+        const cartCountSpan = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cart-modal');
+        const summaryModal = document.getElementById('summary-modal');
+        const closeCartModalButton = document.getElementById('close-cart-modal');
+        const closeSummaryModalButton = document.getElementById('close-summary-modal');
+        const menuItemsContainer = document.getElementById('menu-items');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartTotalSpan = document.getElementById('cart-total');
+        const checkoutButton = document.getElementById('checkout-button');
+        const checkoutMessageDiv = document.getElementById('checkout-message');
+        const loyaltyPointsDiv = document.getElementById('loyalty-points');
+        const loyaltyTierDiv = document.getElementById('loyalty-tier');
+        const pointsProgressDiv = document.getElementById('points-progress');
+        const pointsStatusDiv = document.getElementById('points-status');
+        const rewardsListDiv = document.getElementById('rewards-list');
+        const historyListUl = document.getElementById('history-list');
+        const noHistoryMessage = document.getElementById('no-history-message');
+        const summaryDetailsDiv = document.getElementById('summary-details');
+        const summaryPointsDiv = document.getElementById('summary-points');
+        // New UI Elements for Customization
+        const customizationModal = document.getElementById('customization-modal');
+        const closeCustomizationModalBtn = document.getElementById('close-customization-modal');
+        const customizationTitle = document.getElementById('customization-title');
+        const customizationPrice = document.getElementById('customization-price');
+        const customizationOptionsContainer = document.getElementById('customization-options');
+        const addToCartCustomBtn = document.getElementById('add-to-cart-custom-btn');
+
+        // Functions to manage state persistence using localStorage
+        function saveState() {
+            try {
+                localStorage.setItem('coffeeShopState', JSON.stringify(appState));
+            } catch (error) {
+                console.error('Could not save state to localStorage:', error);
+            }
+        }
+
+        function loadState() {
+            try {
+                const serializedState = localStorage.getItem('coffeeShopState');
+                if (serializedState === null) {
+                    return undefined;
+                }
+                appState = JSON.parse(serializedState);
+            } catch (error) {
+                console.error('Could not load state from localStorage:', error);
+                return undefined;
+            }
+        }
+
+        // --- Core UI Rendering Functions ---
+        function renderAll() {
+            renderCart();
+            renderLoyalty();
+            renderHistory();
+        }
+
+        function renderLoyalty() {
+            loyaltyPointsDiv.textContent = appState.loyaltyPoints;
+            
+            let tier = 'Bronze';
+            let nextTierPoints = loyaltyTiers.Silver.points;
+            let nextTierReward = loyaltyTiers.Silver.reward;
+
+            if (appState.loyaltyPoints >= loyaltyTiers.Gold.points) {
+                tier = 'Gold';
+                nextTierPoints = loyaltyTiers.Gold.points;
+                nextTierReward = 'You have reached the highest tier!';
+            } else if (appState.loyaltyPoints >= loyaltyTiers.Silver.points) {
+                tier = 'Silver';
+                nextTierPoints = loyaltyTiers.Gold.points;
+                nextTierReward = loyaltyTiers.Gold.reward;
+            }
+
+            loyaltyTierDiv.textContent = tier + ' Tier';
+            pointsStatusDiv.textContent = `You have ${appState.loyaltyPoints} points. ${nextTierReward}`;
+            
+            let progress = (appState.loyaltyPoints / nextTierPoints) * 100;
+            if (progress > 100) progress = 100;
+            pointsProgressDiv.style.width = `${progress}%`;
+            
+            renderRewards();
+        }
+
+        function renderRewards() {
+            rewardsListDiv.innerHTML = '';
+            let redeemableFound = false;
+            for (const tier in loyaltyTiers) {
+                const tierData = loyaltyTiers[tier];
+                if (appState.loyaltyPoints >= tierData.points && tierData.points > 0) {
+                    const button = document.createElement('button');
+                    button.textContent = `Redeem ${tierData.reward.split(' at ')[0]}`;
+                    button.className = 'w-full bg-blue-600 text-white font-semibold py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300';
+                    button.onclick = () => redeemReward(tierData.points, tierData.reward.split(' at ')[0]);
+                    rewardsListDiv.appendChild(button);
+                    redeemableFound = true;
+                }
+            }
+            if (!redeemableFound) {
+                rewardsListDiv.innerHTML = `<p class="text-gray-500 italic">No rewards to redeem yet.</p>`;
+            }
+        }
+
+        function renderHistory() {
+            historyListUl.innerHTML = '';
+            if (appState.history.length === 0) {
+                noHistoryMessage.classList.remove('hidden');
+            } else {
+                noHistoryMessage.classList.add('hidden');
+                appState.history.forEach(item => {
+                    const li = document.createElement('li');
+                    li.className = 'flex justify-between items-center';
+                    li.innerHTML = `
+                        <span class="font-semibold">${item.reward}</span>
+                        <span class="text-sm text-gray-500">${new Date(item.redeemedAt).toLocaleDateString()}</span>
+                    `;
+                    historyListUl.appendChild(li);
+                });
+            }
+        }
+
+        function renderCart() {
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            cartCountSpan.textContent = appState.cartItems.length;
+
+            if (appState.cartItems.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="text-center text-gray-500">Your cart is empty.</p>';
+                cartTotalSpan.textContent = 'Total: $0.00';
+                checkoutButton.disabled = true;
+            } else {
+                appState.cartItems.forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'flex justify-between items-center bg-gray-50 p-3 rounded-md';
+                    
+                    const optionsText = item.customizations ? Object.entries(item.customizations)
+                        .map(([key, value]) => `<span class="capitalize">${key}:</span> ${value}`).join(', ') : '';
+
+                    itemDiv.innerHTML = `
+                        <div>
+                            <p class="font-semibold text-gray-900">${item.name} <span class="text-sm text-gray-500">x${item.quantity}</span></p>
+                            ${optionsText ? `<p class="text-xs text-gray-500">${optionsText}</p>` : ''}
+                            <p class="text-sm text-gray-600">$${(item.price * item.quantity).toFixed(2)}</p>
+                        </div>
+                        <button data-index="${index}" class="remove-from-cart-btn text-red-500 hover:text-red-700 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm6 0a1 1 0 012 0v6a1 1 0 11-2 0V8z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(itemDiv);
+                    total += item.price * item.quantity;
+                });
+                cartTotalSpan.textContent = `Total: $${total.toFixed(2)}`;
+                checkoutButton.disabled = false;
+            }
+        }
+
+        // --- Core Application Logic ---
+        function redeemReward(pointsCost, rewardName) {
+            if (appState.loyaltyPoints >= pointsCost) {
+                appState.loyaltyPoints -= pointsCost;
+                appState.history.push({ reward: rewardName, redeemedAt: new Date().toISOString() });
+                saveState();
+                renderAll();
+                showModalMessage(document.getElementById('redeem-message'), `Successfully redeemed ${rewardName}!`, 'text-green-600');
+            } else {
+                showModalMessage(document.getElementById('redeem-message'), "Not enough points to redeem this reward.", 'text-red-600');
+            }
+        }
+        
+        function addToCart(item) {
+            const existingItem = appState.cartItems.find(i => i.id === item.id && !i.customizations);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                appState.cartItems.push({ ...item, quantity: 1 });
+            }
+            saveState();
+            renderCart();
+            showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
+        }
+
+        function addToCartFromCustomization(item, customizations, price) {
+            const existingItem = appState.cartItems.find(i => 
+                i.id === item.id && 
+                JSON.stringify(i.customizations) === JSON.stringify(customizations)
+            );
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                appState.cartItems.push({ 
+                    ...item, 
+                    price: price, // Use the customized price
+                    customizations: customizations,
+                    quantity: 1 
+                });
+            }
+            saveState();
+            renderCart();
+            customizationModal.style.display = 'none';
+            showModalMessage(checkoutMessageDiv, `${item.name} added to cart!`, 'text-green-600');
+        }
+
+        function removeFromCart(itemIndex) {
+            appState.cartItems.splice(itemIndex, 1);
+            saveState();
+            renderCart(); // Only re-render cart for efficiency
+            showModalMessage(checkoutMessageDiv, `Item removed from cart.`, 'text-red-600');
+        }
+
+        function checkout() {
+            if (appState.cartItems.length === 0) {
+                showModalMessage(checkoutMessageDiv, "Your cart is empty!", 'text-red-600');
+                return;
+            }
+            
+            const total = appState.cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+            const pointsEarned = Math.floor(total);
+            const items = [...appState.cartItems]; // Store a copy for the summary
+
+            appState.loyaltyPoints += pointsEarned;
+            appState.cartItems = [];
+            
+            saveState();
+            renderAll();
+            
+            // Show order summary
+            showOrderSummary(items, total, pointsEarned);
+        }
+
+        // --- UI Utility Functions ---
+        function showModalMessage(element, message, className) {
+            element.textContent = message;
+            element.className = `${className} mt-4 text-center font-bold`;
+            element.classList.remove('hidden');
+            setTimeout(() => {
+                element.classList.add('hidden');
+            }, 3000); // Hide message after 3 seconds
+        }
+
+        function showOrderSummary(items, total, pointsEarned) {
+            cartModal.style.display = 'none'; // Close the cart modal
+            summaryDetailsDiv.innerHTML = '';
+            
+            items.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'flex justify-between border-b border-gray-200 pb-2';
+                const optionsText = item.customizations ? Object.entries(item.customizations)
+                    .map(([key, value]) => `${value}`).join(', ') : '';
+
+                itemDiv.innerHTML = `
+                    <span>${item.name} (${optionsText ? optionsText + ', ' : ''}x${item.quantity})</span>
+                    <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                `;
+                summaryDetailsDiv.appendChild(itemDiv);
+            });
+
+            const totalDiv = document.createElement('div');
+            totalDiv.className = 'flex justify-between font-bold text-lg pt-2';
+            totalDiv.innerHTML = `<span>Total:</span><span>$${total.toFixed(2)}</span>`;
+            summaryDetailsDiv.appendChild(totalDiv);
+
+            summaryPointsDiv.textContent = `You earned ${pointsEarned} points with this order!`;
+            summaryModal.style.display = 'flex';
+        }
+
+        function renderMenuItems() {
+            menuItemsContainer.innerHTML = '';
+            menuItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-white p-6 rounded-lg shadow-md flex flex-col items-center text-center';
+                
+                const buttonText = item.options ? 'Customize' : 'Add to Cart';
+                const buttonClass = item.options ? 'customize-btn' : 'add-to-cart-btn';
+
+                itemDiv.innerHTML = `
+                    <img src="${item.imageUrl}" alt="${item.name}" class="w-full h-48 object-cover mb-4 rounded-lg">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">${item.name}</h3>
+                    <p class="text-gray-600 mb-4">${item.description}</p>
+                    <p class="text-2xl font-bold text-gray-900 mb-4">$${item.price.toFixed(2)}</p>
+                    <button data-id="${item.id}" class="${buttonClass} w-full bg-gray-900 text-white font-semibold py-3 rounded-full hover:bg-gray-700 transition-colors duration-300">
+                        ${buttonText}
+                    </button>
+                `;
+                menuItemsContainer.appendChild(itemDiv);
+            });
+        }
+
+        function openCustomizationModal(item) {
+            customizationTitle.textContent = item.name;
+            customizationOptionsContainer.innerHTML = '';
+            let currentPrice = item.price;
+
+            customizationPrice.textContent = `$${currentPrice.toFixed(2)}`;
+
+            const updatePrice = () => {
+                let newPrice = item.price;
+                const selectedOptions = {};
+                // Iterate over each option category
+                for (const key in item.options) {
+                    const selector = `input[name="${key}"]:checked`;
+                    const selectedInput = customizationOptionsContainer.querySelector(selector);
+                    if (selectedInput) {
+                        const modifier = parseFloat(selectedInput.dataset.modifier);
+                        newPrice += modifier;
+                        selectedOptions[key] = selectedInput.dataset.name;
+                    }
+                }
+                customizationPrice.textContent = `$${newPrice.toFixed(2)}`;
+            };
+
+            for (const key in item.options) {
+                const optionGroup = item.options[key];
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'space-y-2';
+                groupDiv.innerHTML = `<p class="font-semibold capitalize">${key}:</p>`;
+
+                optionGroup.forEach((option, index) => {
+                    const optionId = `option-${item.id}-${key}-${index}`;
+                    const label = document.createElement('label');
+                    label.htmlFor = optionId;
+                    label.className = 'flex items-center space-x-2 cursor-pointer';
+
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = key;
+                    input.id = optionId;
+                    input.dataset.modifier = option.price_modifier;
+                    input.dataset.name = option.name;
+                    input.className = 'form-radio text-gray-900 h-4 w-4';
+                    
+                    if (index === 0) {
+                        input.checked = true;
+                    }
+                    
+                    input.addEventListener('change', updatePrice);
+
+                    label.appendChild(input);
+                    label.innerHTML += `<span>${option.name} ($${option.price_modifier >= 0 ? '+' : ''}${option.price_modifier.toFixed(2)})</span>`;
+                    
+                    groupDiv.appendChild(label);
+                });
+                customizationOptionsContainer.appendChild(groupDiv);
+            }
+            
+            updatePrice();
+            
+            addToCartCustomBtn.onclick = () => {
+                const customizations = {};
+                let finalPrice = item.price;
+                for (const key in item.options) {
+                    const selectedInput = customizationOptionsContainer.querySelector(`input[name="${key}"]:checked`);
+                    if (selectedInput) {
+                        finalPrice += parseFloat(selectedInput.dataset.modifier);
+                        customizations[key] = selectedInput.dataset.name;
+                    }
+                }
+                addToCartFromCustomization(item, customizations, finalPrice);
+            };
+
+            customizationModal.style.display = 'flex';
+        }
+
+        function renderEvents() {
+            const eventsContainer = document.getElementById('events-container');
+            events.forEach(event => {
+                const eventDiv = document.createElement('div');
+                eventDiv.className = 'bg-gray-50 p-6 rounded-lg shadow-md';
+                eventDiv.innerHTML = `
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">${event.title}</h3>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold">Date:</span> ${event.date}</p>
+                    <p class="text-gray-600 mb-2"><span class="font-semibold">Time:</span> ${event.time}</p>
+                    <p class="text-gray-600">${event.description}</p>
+                `;
+                eventsContainer.appendChild(eventDiv);
+            });
+        }
+
+        // --- Event Listeners and Initial Load ---
+        window.onload = function() {
+            loadState();
+            renderMenuItems();
+            renderEvents();
+            renderAll();
+        };
+
+        // Event Delegation for "Add to Cart" and "Customize" buttons
+        menuItemsContainer.addEventListener('click', (e) => {
+            const targetButton = e.target.closest('button');
+            if (targetButton) {
+                const itemId = parseInt(targetButton.dataset.id);
+                const item = menuItems.find(item => item.id === itemId);
+                if (!item) return;
+
+                if (targetButton.classList.contains('add-to-cart-btn')) {
+                    addToCart(item);
+                } else if (targetButton.classList.contains('customize-btn')) {
+                    openCustomizationModal(item);
+                }
+            }
+        });
+
+        // Event Delegation for "Remove" buttons in the cart modal
+        cartItemsContainer.addEventListener('click', (e) => {
+            const targetButton = e.target.closest('.remove-from-cart-btn');
+            if (targetButton) {
+                const itemIndex = parseInt(targetButton.dataset.index);
+                removeFromCart(itemIndex);
+            }
+        });
+
+        // Modal event listeners
+        cartButton.addEventListener('click', () => {
+            cartModal.style.display = 'flex';
+        });
+
+        closeCartModalButton.addEventListener('click', () => {
+            cartModal.style.display = 'none';
+        });
+
+        closeSummaryModalButton.addEventListener('click', () => {
+            summaryModal.style.display = 'none';
+        });
+        
+        closeCustomizationModalBtn.addEventListener('click', () => {
+            customizationModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+            if (event.target === summaryModal) {
+                summaryModal.style.display = 'none';
+            }
+            if (event.target === customizationModal) {
+                customizationModal.style.display = 'none';
+            }
+        });
+
+        checkoutButton.addEventListener('click', checkout);
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formMessage = document.getElementById('form-message');
+            formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
+            formMessage.classList.remove('hidden');
+            formMessage.classList.add('text-green-600', 'font-bold');
+        });
+
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newsletterMessage = document.getElementById('newsletter-message');
+            newsletterMessage.textContent = 'Thanks for subscribing! Check your email for a confirmation.';
+            newsletterMessage.classList.remove('hidden');
+            newsletterMessage.classList.add('text-green-400', 'font-bold');
+        });
+    </script>
 </body>
 </html>
